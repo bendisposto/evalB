@@ -8,7 +8,6 @@ public class WebModule extends ServletModule {
 	protected void configureServlets() {
 		super.configureServlets();
 		serve("/evaluate*").with(EvaluationServlet.class);
-		serve("/examples*").with(ExamplesServlet.class);
 		bind(VersionInfo.class).asEagerSingleton();
 	}
 }

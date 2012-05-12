@@ -12,8 +12,6 @@ import java.util.concurrent.TimeoutException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.google.common.base.Strings;
-
 import de.be4.classicalb.core.parser.exceptions.BException;
 import de.be4.classicalb.core.parser.exceptions.BParseException;
 import de.prob.ProBException;
@@ -36,8 +34,7 @@ public class Evaluator {
 		this.space = space;
 	}
 
-	public String eval(final String formula) {
-
+	public String eval(final String formula) throws BParseException {
 		ExecutorService executor = Executors.newSingleThreadExecutor();
 		Future<String> future = executor.submit(new Callable<String>() {
 			@Override
@@ -48,31 +45,15 @@ public class Evaluator {
 					return first.toString();
 				} catch (ProBException e) {
 					return "ERROR: " + e.getMessage();
-				} catch (BException e) {
-					BParseException cause = (BParseException) e.getCause();
-					return produceErrorMessage(cause);
 				}
-			}
-
-			private String produceErrorMessage(BParseException cause) {
-				int line = cause.getToken().getLine();
-				int pos = cause.getToken().getPos();
-				pos = (line == 1) ? pos - 10 : pos; // remove #FORMULA
-				return "PARSE ERROR at line " + line + " column " + pos
-						+ "\n\n" + peeloff(formula, line) + "\n"
-						+ Strings.repeat(" ", pos) + "^" + "\n\n"
-						+ cause.getRealMsg();
-			}
-
-			private String peeloff(String formula, int line) {
-				String[] split = (formula + " ").split("\n");
-				return split[line - 1];
 			}
 		});
 
 		try {
 			this.busy = true;
-			return future.get(TIMEOUT, TIMEOUT_UNIT);
+			String value = future.get(TIMEOUT, TIMEOUT_UNIT);
+			logger.trace("Result {} ", value);
+			return value;
 		} catch (TimeoutException e) {
 			space.sendInterrupt();
 			logger.debug("Timeout while calculating '{}'.", formula);
@@ -81,8 +62,11 @@ public class Evaluator {
 			logger.error("Interrupt Exception ", e);
 			return "ERROR: " + e.getMessage();
 		} catch (ExecutionException e) {
-			logger.error("Execution Exception ", e);
-			return "ERROR: " + e.getMessage();
+			Throwable cause = e.getCause();
+			if (cause instanceof BException) {
+				throw (BParseException) cause.getCause();
+			}
+			return "EXECUTION ERROR";
 		} finally {
 			executor.shutdownNow();
 			this.busy = false;

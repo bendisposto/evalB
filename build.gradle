@@ -17,6 +17,7 @@ dependencies {
     compile group: 'de.prob', name: 'cli', version: '2.0.0-milestone-3-SNAPSHOT', changing: true
 	compile "javax.servlet:servlet-api:2.5"
 	compile 'com.google.inject.extensions:guice-servlet:3.0'
+	compile 'com.google.code.gson:gson:1.7.1'
 }
 
 

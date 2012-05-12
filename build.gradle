@@ -1,0 +1,25 @@
+apply plugin: 'war'
+apply plugin: 'jetty'
+apply plugin: 'eclipse'
+
+repositories {
+    maven {
+      name "cobra"
+      url "http://cobra.cs.uni-duesseldorf.de/artifactory/repo"
+    } 
+}
+
+configurations.all {
+	resolutionStrategy.cacheChangingModulesFor 0, 'seconds'
+}
+
+dependencies {
+    compile group: 'de.prob', name: 'cli', version: '2.0.0-milestone-3-SNAPSHOT', changing: true
+	compile "javax.servlet:servlet-api:2.5"
+	compile 'com.google.inject.extensions:guice-servlet:3.0'
+}
+
+
+httpPort = 8080
+stopPort = 9451
+stopKey = 'foo'

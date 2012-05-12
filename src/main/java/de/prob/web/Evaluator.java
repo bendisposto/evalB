@@ -27,7 +27,7 @@ public class Evaluator {
 	private final static Logger logger = LoggerFactory
 			.getLogger(Evaluator.class);
 
-	private final StateSpace space;
+	public final StateSpace space;
 	private volatile boolean busy;
 
 	public Evaluator(StateSpace space) {

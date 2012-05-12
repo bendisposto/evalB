@@ -5,7 +5,6 @@ import com.google.inject.Singleton;
 
 import de.prob.ProBException;
 import de.prob.animator.command.GetVersionCommand;
-import de.prob.statespace.StateSpace;
 
 @Singleton
 public class VersionInfo {
@@ -14,10 +13,11 @@ public class VersionInfo {
 
 	@SuppressWarnings("static-access")
 	@Inject
-	public VersionInfo(StateSpace space) {
+	public VersionInfo(EvaluatorPool pool) {
 		GetVersionCommand command = new GetVersionCommand();
+		Evaluator evaluator = pool.get();
 		try {
-			space.execute(command);
+			evaluator.space.execute(command);
 		} catch (ProBException e) {
 			e.printStackTrace();
 		}

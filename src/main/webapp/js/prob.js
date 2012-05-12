@@ -19,6 +19,7 @@ function createXMLHttpRequest() {
 var req = createXMLHttpRequest();
 var delay;
 var editor;
+var output;
 var lasthighlight = -1;
 
 function urlencode(str) {
@@ -70,7 +71,7 @@ function probval() {
 function toOutput() {
 	if (req.readyState == 4) {
 		var obj = jQuery.parseJSON(req.responseText);
-		document.getElementById('output').innerHTML = obj.output;
+		output.setValue(obj.output);
 		if (obj.highlight > 0) {
 			lasthighlight = obj.highlight - 1;
 			editor.setLineClass(lasthighlight, null, "activeline");
@@ -123,6 +124,7 @@ function initialize() {
 			delay = setTimeout(probeval, 300);
 		}
 	});
+	output = CodeMirror.fromTextArea(document.getElementById("output"), {lineWrapping: true, readOnly: "nocursor"});
 	editor.setValue('2**100');
 	setTimeout(probeval, 300);
 	load_example_list();

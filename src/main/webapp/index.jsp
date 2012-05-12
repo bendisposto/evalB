@@ -13,9 +13,16 @@
 <style>
 .CodeMirror {
 	float: left;
-	width: 100%;
+	width: 59%;
 	border: 1px solid black;
 }
+.CodeMirror-wrap {
+	float: left;
+	width: 39%;
+	border: 1px solid black;
+	background-color: #FFFFCC
+}
+
 
 .activeline {
 	background: #FFC1C1 !important;
@@ -27,29 +34,20 @@
 		DejaVu Sans Mono, Bitstream Vera Sans Mono, Courier New, monospace;
 }
 
-textarea {
-	border: 1px solid #999999;
-	width: 100%;
-	font-family: Consolas, Monaco, Lucida Console, Liberation Mono,
-		DejaVu Sans Mono, Bitstream Vera Sans Mono, Courier New, monospace;
-}
 </style>
 
 </head>
 <body onload="initialize()">
 
-	<form>
-		<textarea name="input" id="input" cols="80" rows="15"
-			onkeyup="probeval()"></textarea>
-	</form>
-	Examples:
+	<textarea name="input" id="input" cols="80" rows="20"
+		onkeyup="probeval()"></textarea>
+	<textarea name="output" id="output" cols="80" rows="20" ></textarea>
+	<div id="output" class="output"></div>
+	 Examples:
 	<select size="1" id="examples" name="examples"
 		onchange="load_example()">
-		 <option value="" selected="selected"  />
-		</select>
-	<br />
-	<textarea name="output" id="output" cols="80" rows="15"
-		disabled="disabled"></textarea>
+		<option value="" selected="selected" />
+	</select>
 
 	<div id="selectioneval"
 		style="display: none; position: absolute; border: 1px solid #999999; background-color: #FFFFCC; padding: 4px;"></div>

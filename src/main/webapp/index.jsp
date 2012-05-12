@@ -6,7 +6,8 @@
 <script type="text/javascript" src="js/jquery-1.7.2.min.js"></script>
 <script type="text/javascript" src="js/prob.js"></script>
 <script type="text/javascript" src="js/lib/codemirror.js"></script>
-<link rel="stylesheet" href="js/lib/codemirror.css">
+<script type="text/javascript" src="js/lib/hover.js"></script>
+<link rel="stylesheet" href="js/lib/codemirror.css" />
 
 <style>
 .CodeMirror {border-top: 1px solid black; border-bottom: 1px solid black;}
@@ -24,9 +25,16 @@ textarea {
 </form>
 Examples: 
 <select size="1" id="examples" name="examples" onchange="load_example()"></select>
-<br>
+<br />
   <textarea name="output" id="output" cols="80" rows="15" disabled="disabled"></textarea>
+  
+  <div 
+   id="selectioneval" 
+   style="display:none; 
+      position:absolute; 
+      border:1px solid #999999; 
+      background-color: #FFFFCC; 
+      padding: 4px;"></div>
+  
 </body>
-</html>
-
 </html>

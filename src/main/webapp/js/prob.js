@@ -38,11 +38,28 @@ function version() {
 }
 
 function probeval() {
-        text = editor.getValue();
-        input = urlencode(text);
-        req.open('GET', 'evaluate?input='+input,true);
-        sendRequest(toOutput);
+    text = editor.getValue();
+    input = urlencode(text);
+    req.open('GET', 'evaluate?input='+input,true);
+    sendRequest(toOutput);
 }
+function probevalselection() {
+	text = editor.getSelection();
+	input = urlencode(text);
+	req.open('GET', 'evaluate?input='+input,true);
+	sendRequest(selectionHover);
+}
+
+function selectionHover() {
+	if(req.readyState == 4){
+		var obj = jQuery.parseJSON(req.responseText);
+		document.getElementById('selectioneval').innerHTML = obj.output;
+	} else {
+		alert("loading" + ajax.readyState);
+	}
+}
+
+
 
 function probval() {
         text = document.getElementById('input').value;
@@ -99,6 +116,17 @@ function load_example_list() {
 function initialize() {
   editor = CodeMirror.fromTextArea(document.getElementById("input"), { 
      lineNumbers: true,
+     onCursorActivity: function() {
+    	 var sel = editor.getSelection();
+    	 if (sel && sel != '')  {
+    		 ShowContent('selectioneval');
+    		 clearTimeout(delay);
+    		 delay = setTimeout(probevalselection, 300);
+    	 }
+    	 else {
+    		 HideContent('selectioneval');
+    	 }
+     },
      onChange: function() {
           clearTimeout(delay);
           delay = setTimeout(probeval, 300);
@@ -108,3 +136,29 @@ function initialize() {
   setTimeout(probeval, 300);
   load_example_list();
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

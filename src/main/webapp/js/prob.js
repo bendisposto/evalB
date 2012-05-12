@@ -75,9 +75,12 @@ function toOutput() {
 		if (obj.highlight > 0) {
 			lasthighlight = obj.highlight - 1;
 			editor.setLineClass(lasthighlight, null, "activeline");
+			output.setOption("theme", "red");
 		} else {
-			if (lasthighlight > -1)
+			if (lasthighlight > -1) {
 				editor.setLineClass(lasthighlight, null, null);
+				output.setOption("theme", "green");
+			}
 		}
 	} else {
 		alert("loading" + ajax.readyState);
@@ -93,7 +96,6 @@ function toInput() {
 	}
 }
 
-
 function load_example() {
 	r = document.getElementById('examples').value;
 	editor.setValue(example_list[r]);
@@ -101,8 +103,8 @@ function load_example() {
 
 function load_example_list() {
 	s = document.getElementById('examples');
-	for (var e in example_list) {
-		s.add(new Option(e,e),null);
+	for ( var e in example_list) {
+		s.add(new Option(e, e), null);
 	}
 }
 
@@ -124,7 +126,10 @@ function initialize() {
 			delay = setTimeout(probeval, 300);
 		}
 	});
-	output = CodeMirror.fromTextArea(document.getElementById("output"), {lineWrapping: true, readOnly: "nocursor"});
+	output = CodeMirror.fromTextArea(document.getElementById("output"), {
+		lineWrapping : true,
+		readOnly : "nocursor"
+	});
 	editor.setValue('2**100');
 	setTimeout(probeval, 300);
 	load_example_list();

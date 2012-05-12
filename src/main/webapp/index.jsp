@@ -8,6 +8,8 @@
 <script type="text/javascript" src="js/prob.js"></script>
 <script type="text/javascript" src="js/lib/codemirror.js"></script>
 <script type="text/javascript" src="js/lib/hover.js"></script>
+<link rel="stylesheet" href="js/lib/themes/green.css">
+	<link rel="stylesheet" href="js/lib/themes/red.css">
 <link rel="stylesheet" href="js/lib/codemirror.css" />
 
 <style>
@@ -15,25 +17,25 @@
 	float: left;
 	width: 59%;
 	border: 1px solid black;
+	background-color: #FFFFFF
 }
+
 .CodeMirror-wrap {
 	float: left;
 	width: 39%;
 	border: 1px solid black;
-	background-color: #FFFFCC
+	background-color: #EEFFEE
 }
-
 
 .activeline {
 	background: #FFC1C1 !important;
 }
 
 #version {
-	font-size: x-small;
+	font-size: xx-small;
 	font-family: Consolas, Monaco, Lucida Console, Liberation Mono,
 		DejaVu Sans Mono, Bitstream Vera Sans Mono, Courier New, monospace;
 }
-
 </style>
 
 </head>
@@ -41,16 +43,16 @@
 
 	<textarea name="input" id="input" cols="80" rows="20"
 		onkeyup="probeval()"></textarea>
-	<textarea name="output" id="output" cols="80" rows="20" ></textarea>
+	<textarea name="output" id="output" cols="80" rows="20"></textarea>
 	<div id="output" class="output"></div>
-	 Examples:
-	<select size="1" id="examples" name="examples"
-		onchange="load_example()">
-		<option value="" selected="selected" />
-	</select>
-
+	<form>
+		Examples: <select size="1" id="examples" name="examples"
+			onchange="load_example()">
+			<option value="" selected="selected" />
+		</select>
+	</form>
 	<div id="selectioneval"
-		style="display: none; position: absolute; border: 1px solid #999999; background-color: #FFFFCC; padding: 4px;"></div>
+		style="display: none; position: absolute; border: 1px solid #999999; background-color: #FFFFEE; padding: 4px;"></div>
 	<div id="version"><%=de.prob.web.VersionInfo.getVersion()%></div>
 </body>
 </html>

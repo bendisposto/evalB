@@ -44,6 +44,8 @@ public class Evaluator {
 					EvaluationResult first = evaluate.get(0);
 					return first.toString();
 				} catch (ProBException e) {
+					Throwable cause = e.getCause();
+					if (cause != null) return "ERROR: " + cause.getMessage();
 					return "ERROR: " + e.getMessage();
 				}
 			}

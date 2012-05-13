@@ -6,7 +6,6 @@
 <html lang="en">
 <!--<![endif]-->
 <head>
-<link rel="shortcut icon" href="favicon.ico" />
 <!-- Basic Page Needs
     ================================================== -->
 <meta charset="utf-8">

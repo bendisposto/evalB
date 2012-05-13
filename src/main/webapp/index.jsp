@@ -8,8 +8,8 @@
 <script type="text/javascript" src="js/prob.js"></script>
 <script type="text/javascript" src="js/lib/codemirror.js"></script>
 <script type="text/javascript" src="js/lib/hover.js"></script>
-<link rel="stylesheet" href="js/lib/themes/green.css">
-	<link rel="stylesheet" href="js/lib/themes/red.css">
+<link rel="stylesheet" href="js/lib/themes/green.css" />
+<link rel="stylesheet" href="js/lib/themes/red.css" />
 <link rel="stylesheet" href="js/lib/codemirror.css" />
 
 <style>

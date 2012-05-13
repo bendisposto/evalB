@@ -17,7 +17,7 @@ var CodeMirror = (function() {
 
     // The element in which the editor lives.
     var wrapper = document.createElement("div");
-    wrapper.className = "CodeMirror" + (options.lineWrapping ? " CodeMirror-wrap" : "");
+    wrapper.className = "CodeMirror two-thirds column" + (options.lineWrapping ? " CodeMirror-wrap" : "");
     // This mess creates the base DOM structure for the editor.
     wrapper.innerHTML =
       '<div style="overflow: hidden; position: relative; width: 3px; height: 0px;">' + // Wraps and hides input textarea

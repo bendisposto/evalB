@@ -4,6 +4,12 @@
 	background-color: #ebeac7;
 }
 
+#footer-logo {
+  font-size: 12px;
+  font-family: "Impact";
+  text-transform: uppercase;
+  color: #47282c;
+}
 
 .CodeMirror-wrap {
 	margin-top: 20px;
@@ -23,4 +29,37 @@
 
 .activeline {
 	background: #BcB498 !important;
+}
+
+
+.cheat-box-container {
+  background-color: #c4c49c;
+  border-radius: 5px;
+  -moz-border-radius: 5px;
+  margin-top: 20px;
+}
+
+.cheat-box {
+  padding: 20px;
+}
+
+table {
+  font-family: monospace;
+  margin-top: 20px;
+  width: 100%;
+}
+
+td {
+  font-size: 16px;
+  padding: 3px;
+}
+
+.row-one {
+  background-color: #f2efe4;
+}
+
+.row-label {
+  color: #666;
+  font-family: "ExoBold";
+  text-transform: uppercase;
 }

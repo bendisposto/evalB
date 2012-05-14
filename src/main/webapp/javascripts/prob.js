@@ -42,13 +42,17 @@ function version() {
 function probeval() {
 	text = editor.getValue();
 	input = urlencode(text);
-	req.open('GET', 'evaluate?input=' + input, true);
+	m = document.getElementById('mode').value;
+	mode = urlencode(m);
+	req.open('GET', 'evaluate?input=' + input + '&mode=' + mode, true);
 	sendRequest(toOutput);
 }
 function probevalselection() {
 	text = editor.getSelection();
 	input = urlencode(text);
-	req.open('GET', 'evaluate?input=' + input, true);
+	m = document.getElementById('mode').value;
+	mode = urlencode(m);
+	req.open('GET', 'evaluate?input=' + input + '&mode=' + mode, true);
 	sendRequest(selectionHover);
 }
 
@@ -59,13 +63,6 @@ function selectionHover() {
 	} else {
 		alert("loading" + ajax.readyState);
 	}
-}
-
-function probval() {
-	text = document.getElementById('input').value;
-	input = urlencode(text);
-	req.open('GET', 'validate.php?input=' + input, true);
-	sendRequest(toOutput);
 }
 
 function toOutput() {

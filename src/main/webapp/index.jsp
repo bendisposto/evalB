@@ -61,10 +61,10 @@
 		</div>
 		<div class="one-third column omega" style="vertical-align: text-top;">
 			<h3>Mode</h3>
-			<select size="1" id="mode" name="mode" class="styled-select">
-				<option value="Existential Quantification" selected="selected">Existential
+			<select size="1" id="mode" name="mode" class="styled-select" onchange="probeval()">
+				<option value="" selected="selected">Existential
 					Quantification</option>
-				<option value="Universal Quantification">Universal
+				<option value="tautology">Universal
 					Quantification</option>
 			</select>
 			<h3>Examples</h3>
@@ -97,11 +97,20 @@
 				<table>
 					<tr class="row-one">
 						<td class="row-label">Boolean</td>
-						<td>TRUE, FALSE</td>
+						<td>TRUE, FALSE [<a href="#1">1</a>]
+						</td>
 					</tr>
-					<tr class="row-one">
+					<tr>
 						<td class="row-label">Integer</td>
 						<td>1,2,3, ...</td>
+					</tr>
+					<tr class="row-one">
+						<td class="row-label">greatest implementable Integer</td>
+						<td>MAXINT</td>
+					</tr>
+					<tr>
+						<td class="row-label">least implementable Integer</td>
+						<td>MININT</td>
 					</tr>
 					<tr class="row-one">
 						<td class="row-label">Strings</td>
@@ -110,7 +119,7 @@
 				</table>
 			</div>
 			<div class="cheat-box">
-				<h4>Basic Sets</h4>
+				<h4>Predefined Sets</h4>
 				<table>
 					<tr class="row-one">
 						<td class="row-label">Boolean</td>
@@ -118,11 +127,21 @@
 					</tr>
 					<tr>
 						<td class="row-label">Integer</td>
-						<td>INT, INTEGER</td>
+						<td>INT, INTEGER [<a href="#2">2</a>]
+						</td>
 					</tr>
 					<tr class="row-one">
+						<td class="row-label">Natual Numbers</td>
+						<td>NAT, NATURAL [<a href="#2">2</a>]
+						</td>
+					</tr>
+					<tr>
 						<td class="row-label">Strings</td>
 						<td>STRING</td>
+					</tr>
+					<tr class="row-one">
+						<td class="row-label">Empty set $\emptyset$</td>
+						<td>{}</td>
 					</tr>
 				</table>
 			</div>
@@ -165,6 +184,19 @@
 				</table>
 			</div>
 			<div class="cheat-box">
+				<h4>Conversion</h4>
+				<table>
+					<tr class="row-one">
+						<td class="row-label">Predicate to Boolean Value</td>
+						<td>bool(P)</td>
+					</tr>
+					<tr>
+						<td class="row-label">Cardinality of a Set</td>
+						<td>card(S)</td>
+					</tr>
+				</table>
+			</div>
+			<div class="cheat-box">
 				<h4>Equality</h4>
 				<table>
 					<tr class="row-one">
@@ -178,7 +210,7 @@
 				</table>
 			</div>
 			<div class="cheat-box">
-				<h4>Sets</h4>
+				<h4>Set Predicates</h4>
 				<table>
 					<tr class="row-one">
 						<td class="row-label">$x \in S$</td>
@@ -196,8 +228,54 @@
 						<td class="row-label">$S \subset T$</td>
 						<td>S <<: T</td>
 					</tr>
+					<tr>
 				</table>
 			</div>
+			<div class="cheat-box">
+				<h4>Set Construction</h4>
+				<table>
+					<tr class="row-one">
+						<td class="row-label">Set enumeration</td>
+						<td>{a,b,c}</td>
+					</tr>
+					<tr>
+						<td class="row-label">Set comprehension $ \{x \mid P\} $</td>
+						<td>{x | P}</td>
+					</tr>
+					<tr class="row-one">
+						<td class="row-label">Lambda Abstraction</td>
+						<td>%x.(P|E)</td>
+					</tr>
+					<tr>
+						<td class="row-label">Intervall $ \{x \mid x \in \mathbb{Z}
+							\wedge n \leq x \wedge x \leq m\} $</td>
+						<td>n..m</td>
+					</tr>
+					<tr class="row-one">
+						<td class="row-label">Powerset $\mathbb{P}(S)$</td>
+						<td>POW(S)</td>
+					</tr>
+					<tr>
+						<td class="row-label">Cartesian Product $ S \times T $</td>
+						<td>S*T</td>
+					</tr>
+					<tr class="row-one">
+						<td class="row-label">Set of relations $\mathbb{P}(S \times
+							T)$</td>
+						<td>S <-> T</td>
+					</tr>
+					<tr>
+						<td class="row-label">Set of partial functions</td>
+						<td>S +-> T</td>
+					</tr>
+					<tr class="row-one">
+						<td class="row-label">Set of total functions</td>
+						<td>S --> T</td>
+					</tr>
+				</table>
+			</div>
+		</div>
+		<div class="cheat-box-container eight columns">
 			<div class="cheat-box">
 				<h4>Arithmetic</h4>
 				<table>
@@ -214,7 +292,7 @@
 						<td>x ** y</td>
 					</tr>
 					<tr>
-						<td class="row-label">$ x\ \text{mod}\  y$</td>
+						<td class="row-label">$ x\ \text{mod}\ y$</td>
 						<td>x mod y</td>
 					</tr>
 					<tr class="row-one">
@@ -227,12 +305,178 @@
 					</tr>
 				</table>
 			</div>
+			<div class="cheat-box">
+				<h4>Set Operations</h4>
+				<table>
+					<tr class="row-one">
+						<td class="row-label">$S \cup T$</td>
+						<td>S \/ T</td>
+					</tr>
+					<tr>
+						<td class="row-label">$S \cap T$</td>
+						<td>S /\ T</td>
+					</tr>
+					<tr class="row-one">
+						<td class="row-label">$S \smallsetminus T$</td>
+						<td>S - T</td>
+					</tr>
+					<tr>
+						<td class="row-label">$ x\ \text{mod}\ y$</td>
+						<td>x mod y</td>
+					</tr>
+					<tr class="row-one">
+						<td class="row-label">Sucessor</td>
+						<td>succ(x)</td>
+					</tr>
+					<tr>
+						<td class="row-label">Predecessor</td>
+						<td>pred(x)</td>
+					</tr>
+				</table>
+			</div>
+			<div class="cheat-box">
+				<h4>
+					Relation Operations [<a href="#3">3</a>]
+				</h4>
+				<table>
+					<tr class="row-one">
+						<td class="row-label">Relational image $\{t \mid \exists s
+							\cdot s \in S \wedge (s \mapsto t) \in r\}$</td>
+						<td>r[S]</td>
+					</tr>
+					<tr>
+						<td class="row-label">Relational composition $r2 \circ r1$</td>
+						<td>(r1;r2)</td>
+					</tr>
+					<tr class="row-one">
+						<td class="row-label">transitive closure</td>
+						<td>closure1(r)</td>
+					</tr>
+					<tr>
+						<td class="row-label">transitive reflexive closure</td>
+						<td>closure(r)</td>
+					</tr>
+					<tr class="row-one">
+						<td class="row-label">Domain</td>
+						<td>dom(r)</td>
+					</tr>
+					<tr>
+						<td class="row-label">Range</td>
+						<td>range(r)</td>
+					</tr>
+					<tr class="row-one">
+						<td class="row-label">Inverse $r^{-1}$</td>
+						<td>r~</td>
+					</tr>
+					<tr>
+						<td class="row-label">Identity relation</td>
+						<td>id(S)</td>
+					</tr>
+					<tr class="row-one">
+						<td class="row-label">Relational override</td>
+						<td>r1 <+ r2</td>
+					</tr>
+					<tr>
+						<td class="row-label">Domain restriction</td>
+						<td>S <| r</td>
+					</tr>
+					<tr class="row-one">
+						<td class="row-label">Domain subtraction</td>
+						<td>S <<| r</td>
+					</tr>
+					<tr>
+						<td class="row-label">Range restriction</td>
+						<td>r |> S</td>
+					</tr>
+					<tr class="row-one">
+						<td class="row-label">Range antirestriction</td>
+						<td>r |>> S</td>
+					</tr>
+				</table>
+			</div>
+			<div class="cheat-box">
+				<h4>
+					Sequence operations [<a href="#4">4</a>]
+				</h4>
+				<table>
+					<tr class="row-one">
+						<td class="row-label">concatenation</td>
+						<td>s1^s2</td>
+					</tr>
+					<tr>
+						<td class="row-label">first element</td>
+						<td>first(s)</td>
+					</tr>
+					<tr class="row-one">
+						<td class="row-label">all but first element</td>
+						<td>tail(s)</td>
+					</tr>
+					<tr>
+						<td class="row-label">prepend an element</td>
+						<td>E->s</td>
+					</tr>
+					<tr class="row-one">
+						<td class="row-label">Size of a sequence</td>
+						<td>size(s)</td>
+					</tr>
+				</table>
+			</div>
 			<!-- /cheat-box -->
+			<div class="cheat-box">
+				<h4>Sequence Construction</h4>
+				<table>
+					<tr class="row-one">
+						<td class="row-label">Empty sequence</td>
+						<td>[]</td>
+					</tr>
+					<tr>
+						<td class="row-label">explicit sequence</td>
+						<td>[a,b,c,...]</td>
+					</tr>
+					<tr class="row-one">
+						<td class="row-label">Set of sequences over a set</td>
+						<td>seq(S)</td>
+					</tr>
+					<tr>
+						<td class="row-label">Set of injective sequences over a set</td>
+						<td>iseq(S)</td>
+					</tr>
+					<tr class="row-one">
+						<td class="row-label">Set of permutations</td>
+						<td>perm(S)</td>
+					</tr>
+				</table>
+			</div>
 
 		</div>
 		<!-- /cheat-box-container -->
 
-		<div class="sixteen columns">
+		<div class="sixteen columns space">
+			<p>
+				<a name="1">[1]</a> Note that in B the values TRUE and FALSE are no
+				predicates and cannot be combind using logical connectives. Thus a
+				formula 'TRUE => TRUE' is not well typed. You can use TRUE=TRUE or
+				TRUE=FALSE to produce proper predicates.
+			</p>
+			<p>
+				<a name="2">[2]</a> INT is the set of integers between MININT and
+				MAXINT, INTEGER are the mathematical integers $\mathbb{Z}$. NAT and
+				NATURAL are similar.
+			</p>
+			<p>
+				<a name="3">[3]</a> In B a relaton (or function) is a set of tuples.
+				Thus any operation that is allowed on sets can also be applied to
+				relations.
+			</p>
+			<p>
+				<a name="4">[4]</a> A sequences of $\Sigma$ values $s=<\alpha \ldots
+				\omega>$ is a total function $1..card(s) \rightarrow \Sigma$. Thus
+				all operations on relations and sets are also allowed on sequences.
+				However, in general they do not yield a sequence.
+			</p>
+		</div>
+
+		<div class="sixteen columns space">
 			<hr style="margin-top: 0px; margin-bottom: 0px;" />
 			<div id="footer-logo">
 				(C) 2012, <a href="http://www.stups.uni-duesseldorf.de">STUPS

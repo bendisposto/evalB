@@ -63,3 +63,12 @@ td {
   font-family: "ExoBold";
   text-transform: uppercase;
 }
+
+sup, sub {
+       line-height: 0;
+       font-size: 80%;
+}
+
+.space {
+	 margin-top: 20px;
+}

@@ -35,12 +35,16 @@ public class EvaluationServlet extends HttpServlet {
 	public void doGet(HttpServletRequest req, HttpServletResponse res)
 			throws ServletException, IOException {
 		PrintWriter out = res.getWriter();
+		String mode = req.getParameter("mode");
 		String formula = req.getParameter("input");
 		Evaluator evaluator = pool.get();
 		ResultObject result = new ResultObject();
 		logger.trace("Evaluating '{}'", formula);
 		try {
-			result.setOutput(evaluator.eval(formula));
+			if (!"tautology".equals(mode))
+				result.setOutput(evaluator.eval(formula));
+			else
+				result.setOutput(evaluator.check(formula));
 		} catch (BParseException e) {
 			result.setOutput(produceErrorMessage(e, formula));
 			result.setHighlight(e.getToken().getLine());

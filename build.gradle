@@ -20,7 +20,7 @@ dependencies {
 	compile 'com.google.code.gson:gson:1.7.1'
 }
 
-def  prettyName(String name) {
+def prettyName(String name) {
 		String r1 = name.replaceAll("_", " ");
 		StringBuffer sb = new StringBuffer();
 		boolean upperCaseAllowed = true;
@@ -39,7 +39,7 @@ def  prettyName(String name) {
 	}
 
 task examples << {
-	def examples = [:]
+	def examples = new TreeMap()
 	files { new File("examples").listFiles() }.each {
 		examples[prettyName(it.name)] =  it.text		
 	}

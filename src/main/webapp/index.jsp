@@ -322,18 +322,6 @@
 						<td class="row-label">$S \smallsetminus T$</td>
 						<td>S - T</td>
 					</tr>
-					<tr>
-						<td class="row-label">$ x\ \text{mod}\ y$</td>
-						<td>x mod y</td>
-					</tr>
-					<tr class="row-one">
-						<td class="row-label">Sucessor</td>
-						<td>succ(x)</td>
-					</tr>
-					<tr>
-						<td class="row-label">Predecessor</td>
-						<td>pred(x)</td>
-					</tr>
 				</table>
 			</div>
 			<div class="cheat-box">
@@ -456,7 +444,7 @@
 		<div class="sixteen columns space">
 			<p>
 				<a name="1">[1]</a> Note that in B the values TRUE and FALSE are not
-				predicates and cannot be combind using logical connectives. Thus a
+				predicates and cannot be combined using logical connectives. Thus a
 				formula 'TRUE => TRUE' is not well typed. You can use TRUE=TRUE or
 				TRUE=FALSE to produce proper predicates.
 			</p>

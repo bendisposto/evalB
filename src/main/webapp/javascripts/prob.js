@@ -21,6 +21,7 @@ var delay;
 var editor;
 var output;
 var lasthighlight = -1;
+var example_list;
 
 function urlencode(str) {
 	str = (str + '').toString();
@@ -93,6 +94,18 @@ function toInput() {
 	}
 }
 
+function toExamples() {
+	if (req.readyState == 4) {
+		example_list = jQuery.parseJSON(req.responseText);
+		for ( var e in example_list) {
+			s.add(new Option(e, e), null);
+		}
+        		
+	} else {
+		alert("loading" + ajax.readyState);
+	}
+}
+
 function load_example() {
 	r = document.getElementById('examples').value;
 	editor.setValue(example_list[r]);
@@ -100,9 +113,8 @@ function load_example() {
 
 function load_example_list() {
 	s = document.getElementById('examples');
-	for ( var e in example_list) {
-		s.add(new Option(e, e), null);
-	}
+	req.open('GET', 'examples', true);
+	sendRequest(toExamples);
 }
 
 function initialize() {

@@ -1,3 +1,5 @@
+
+
 <!DOCTYPE html>
 <!--[if lt IE 7 ]><html class="ie ie6" lang="en"> <![endif]-->
 <!--[if IE 7 ]><html class="ie ie7" lang="en"> <![endif]-->
@@ -453,7 +455,7 @@
 
 		<div class="sixteen columns space">
 			<p>
-				<a name="1">[1]</a> Note that in B the values TRUE and FALSE are no
+				<a name="1">[1]</a> Note that in B the values TRUE and FALSE are not
 				predicates and cannot be combind using logical connectives. Thus a
 				formula 'TRUE => TRUE' is not well typed. You can use TRUE=TRUE or
 				TRUE=FALSE to produce proper predicates.

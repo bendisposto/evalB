@@ -1,0 +1,4 @@
+parity = %x.(x:NATURAL|x mod 2) &
+parity[1..10] = res &
+mapresult = ( [2,3,5,7] ; parity)
+

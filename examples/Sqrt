@@ -1,0 +1,3 @@
+ sqrt>0 & sqrt*sqrt <= i & (sqrt+1)*(sqrt+1)>i 
+ /* specify the integer square root of i */
+ & i = 10000000

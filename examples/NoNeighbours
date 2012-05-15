@@ -1,0 +1,29 @@
+ ID={"A","B","C","D","E","F","G","H"} &
+ next: ID <-> ID  &
+ number: ID --> 1..8 &
+ !(x,y).(x|->y:next => (number(x)-number(y) >1 or number(y)-number(x) > 1)) &
+ next = { "A"|->"B", "A"|->"C", "A"|->"D", "A"|->"E",
+          "B"|->"D", "B"|->"E", "B"|->"F",
+          "C"|->"D", "C"|->"G",
+          "D"|->"E", "D"|->"G", "D"|->"H",
+          "E"|->"F", "E"|->"G", "E"|->"H",
+          "F"|->"H",
+          "G"|->"H" } 
+/*
+Assign the numbers 1..8 to vertices A..H in the graph below such that the values of connected vertices differ by more than one:
+
+     A----B
+    /|\  /|\
+   / | \/ | \
+  /  | /\ |  \
+ /   |/  \|   \
+C----D----E----F
+ \   |\  /|   /
+  \  | \/ |  /
+   \ | /\ | /
+    \|/  \|/
+     G----H
+
+From : http://www.g12.csse.unimelb.edu.au/wiki/doku.php?id=contrib:no_neighbours:wiki
+
+*/

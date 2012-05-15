@@ -1,0 +1,97 @@
+ /* A list of tautologies taken from
+   http://pythonism.wordpress.com/2010/09/13/propositional-logic-and-some-tautologies 
+   in turn taken from the book "Logic" by Wilfried Hodges */
+   
+   not(P=TRUE & not(P=TRUE)) 
+ &
+  (P=TRUE or not(P=TRUE)) 
+ &
+  (P=TRUE <=> not(not(P=TRUE))) 
+ &
+  ((P=TRUE or Q=TRUE) <=> not(not(P=TRUE) & not(Q=TRUE))) 
+ &
+  ((P=TRUE or Q=TRUE) <=> (not(P=TRUE) => Q=TRUE)) 
+ &
+  ((P=TRUE or Q=TRUE) <=> (Q=TRUE or P=TRUE)) 
+ &
+  (((P=TRUE or Q=TRUE) or R=TRUE) <=> (P=TRUE or (Q=TRUE or R=TRUE))) 
+ &
+  ((P=TRUE or P=TRUE) <=> P=TRUE) 
+ &
+  (P=TRUE => (P=TRUE or Q=TRUE)) 
+ &
+  ((P=TRUE => R=TRUE) => ((Q=TRUE => R=TRUE) => ((P=TRUE or Q=TRUE) => R=TRUE))) 
+ &
+  (not(P=TRUE) => ((P=TRUE or Q=TRUE) <=> Q=TRUE)) 
+ &
+  ((P=TRUE & Q=TRUE) <=> not(not(P=TRUE) or not(Q=TRUE))) 
+ &
+  ((P=TRUE & Q=TRUE) <=> not(P=TRUE => not(Q=TRUE))) 
+ &
+  ((P=TRUE & Q=TRUE) <=> (Q=TRUE & P=TRUE)) 
+ &
+  (((P=TRUE & Q=TRUE) & R=TRUE) <=> (P=TRUE & (Q=TRUE & R=TRUE))) 
+ &
+  ((P=TRUE & P=TRUE) => P=TRUE) 
+ &
+  ((P=TRUE & Q=TRUE) => P=TRUE) 
+ &
+  ((P=TRUE & Q=TRUE) => Q=TRUE) 
+ &
+  (P=TRUE => (Q=TRUE => (P=TRUE & Q=TRUE))) 
+ &
+  ((P=TRUE => Q=TRUE) => ((P=TRUE => R=TRUE) => (P=TRUE => (Q=TRUE & R=TRUE)))) 
+ &
+  (P=TRUE => ((P=TRUE & Q=TRUE) <=> Q=TRUE)) 
+ &
+  ((P=TRUE & (Q=TRUE or P=TRUE)) <=> P=TRUE) 
+ &
+  ((P=TRUE or (Q=TRUE & P=TRUE)) <=> P=TRUE) 
+ &
+  ((P=TRUE & (Q=TRUE or R=TRUE)) <=> ((P=TRUE & Q=TRUE) or (P=TRUE & R=TRUE))) 
+ &
+  ((P=TRUE or (Q=TRUE & R=TRUE)) <=> ((P=TRUE or Q=TRUE) & (P=TRUE or R=TRUE))) 
+ &
+  (((P=TRUE or Q=TRUE) & not(P=TRUE)) => Q=TRUE) 
+ &
+  (P=TRUE <=> ((P=TRUE & Q=TRUE) or (P=TRUE & not(Q=TRUE)))) 
+ &
+  (P=TRUE <=> ((P=TRUE or Q=TRUE) & (P=TRUE or not(Q=TRUE)))) 
+ &
+  ((P=TRUE => Q=TRUE) <=> (not(P=TRUE) or Q=TRUE)) 
+ &
+  ((P=TRUE => Q=TRUE) <=> not(P=TRUE & not(Q=TRUE))) 
+ &
+  (P=TRUE => P=TRUE) 
+ &
+  (P=TRUE => (Q=TRUE => P=TRUE)) 
+ &
+  (((P=TRUE => Q=TRUE) => P=TRUE) => P=TRUE) 
+ &
+  ((P=TRUE => (Q=TRUE => R=TRUE)) => ((P=TRUE => Q=TRUE) => (P=TRUE => R=TRUE))) 
+ &
+  ((P=TRUE => Q=TRUE) => ((Q=TRUE => R=TRUE) => (P=TRUE => R=TRUE))) 
+ &
+  (not(P=TRUE) => (P=TRUE => Q=TRUE))
+ &
+  ((not(Q=TRUE) => not(P=TRUE)) => (P=TRUE => Q=TRUE)) 
+ &
+  ((P=TRUE => (Q=TRUE => R=TRUE) <=> ((P=TRUE & Q=TRUE) => R=TRUE)))
+ &
+  ((P=TRUE <=> Q=TRUE) <=> ((P=TRUE & Q=TRUE) or (not(P=TRUE) & not(Q=TRUE)))) 
+ &
+  ((P=TRUE <=> Q=TRUE) <=> (not(P=TRUE & not(Q=TRUE)) & not(not(P=TRUE) & Q=TRUE))) 
+ &
+  ((P=TRUE <=> Q=TRUE) <=> ((P=TRUE => Q=TRUE) & (Q=TRUE => P=TRUE))) 
+ &
+  (P=TRUE <=> P=TRUE) 
+ &
+  ((P=TRUE <=> Q=TRUE) => (P=TRUE => Q=TRUE)) 
+ &
+  ((P=TRUE <=> Q=TRUE) <=> (Q=TRUE <=> P=TRUE)) 
+ &
+  ((P=TRUE <=> Q=TRUE) => ((Q=TRUE <=> R=TRUE) => (P=TRUE <=> R=TRUE))) 
+ &
+  ((P=TRUE <=> Q=TRUE) <=> (not(P=TRUE) <=> not(Q=TRUE))) 
+ &
+  ((P=TRUE <=> Q=TRUE) <=> not(P=TRUE <=> not(Q=TRUE)))

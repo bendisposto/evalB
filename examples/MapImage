@@ -1,0 +1,9 @@
+/* define an infinite function cube and
+   map it over a list using relational composition (;)
+   and compute its image over the set 1..10 */
+  
+ cube = %x.(x:INTEGER|x*x*x) &
+ ([1,2,3,4,5] ; cube) = list &
+  cube[1..10] = image &
+  
+  cube(y) = 15625  /* and take the cubic root of a number */

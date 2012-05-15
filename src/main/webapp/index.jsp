@@ -489,7 +489,7 @@
 	<script src="javascripts/jquery-1.7.2.min.js"></script>
 	<script src="javascripts/codemirror.js"></script>
 	<script src="javascripts/hover.js"></script>
-	<script src="javascripts/examples.js"></script>
+	<script src="examples.js"></script>
 	<script src="javascripts/prob.js"></script>
 	<script type="text/javascript"
 		src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>

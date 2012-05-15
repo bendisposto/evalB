@@ -17,6 +17,7 @@ public class EvaluatorPool implements Provider<Evaluator> {
 	private final ICommand[] losCommandos = {
 			new LoadBProjectFromStringCommand("MACHINE empty END"),
 			new SetPreferenceCommand("CLPFD", "TRUE"),
+			new SetPreferenceCommand("BOOL_AS_PREDICATE", "TRUE"),
 			new SetPreferenceCommand("MAXINT", "127"),
 			new SetPreferenceCommand("MININT", "-128"),
 			new SetPreferenceCommand("TIME_OUT", "500"),

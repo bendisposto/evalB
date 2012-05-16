@@ -101,8 +101,7 @@ You can also <a href="http://www.stups.uni-duesseldorf.de/ProB/index.php5/Downlo
 				<table>
 					<tr class="row-one">
 						<td class="row-label">Boolean</td>
-						<td>TRUE, FALSE [<a href="#1">1</a>]
-						</td>
+						<td>TRUE, FALSE</td>
 					</tr>
 					<tr>
 						<td class="row-label">Integer</td>
@@ -131,12 +130,12 @@ You can also <a href="http://www.stups.uni-duesseldorf.de/ProB/index.php5/Downlo
 					</tr>
 					<tr>
 						<td class="row-label">Integer</td>
-						<td>INT, INTEGER [<a href="#2">2</a>]
+						<td>INT, INTEGER [<a href="#2">1</a>]
 						</td>
 					</tr>
 					<tr class="row-one">
 						<td class="row-label">Natual Numbers</td>
-						<td>NAT, NATURAL [<a href="#2">2</a>]
+						<td>NAT, NATURAL [<a href="#2">1</a>]
 						</td>
 					</tr>
 					<tr>
@@ -328,7 +327,7 @@ You can also <a href="http://www.stups.uni-duesseldorf.de/ProB/index.php5/Downlo
 			</div>
 			<div class="cheat-box">
 				<h4>
-					Relation Operations [<a href="#3">3</a>]
+					Relation Operations [<a href="#2">2</a>]
 				</h4>
 				<table>
 					<tr class="row-one">
@@ -388,7 +387,7 @@ You can also <a href="http://www.stups.uni-duesseldorf.de/ProB/index.php5/Downlo
 			</div>
 			<div class="cheat-box">
 				<h4>
-					Sequence operations [<a href="#4">4</a>]
+					Sequence operations [<a href="#3">3</a>]
 				</h4>
 				<table>
 					<tr class="row-one">
@@ -445,23 +444,17 @@ You can also <a href="http://www.stups.uni-duesseldorf.de/ProB/index.php5/Downlo
 
 		<div class="sixteen columns space">
 			<p>
-				<a name="1">[1]</a> Note that in B the values TRUE and FALSE are not
-				predicates and cannot be combined using logical connectives. Thus a
-				formula 'TRUE => TRUE' is not well typed. You can use TRUE=TRUE or
-				TRUE=FALSE to produce proper predicates.
-			</p>
-			<p>
-				<a name="2">[2]</a> INT is the set of integers between MININT and
+				<a name="1">[1]</a> INT is the set of integers between MININT and
 				MAXINT, INTEGER are the mathematical integers $\mathbb{Z}$. NAT and
 				NATURAL are similar.
 			</p>
 			<p>
-				<a name="3">[3]</a> In B a relaton (or function) is a set of tuples.
+				<a name="2">[2]</a> In B a relaton (or function) is a set of tuples.
 				Thus any operation that is allowed on sets can also be applied to
 				relations.
 			</p>
 			<p>
-				<a name="4">[4]</a> A sequences of $\Sigma$ values $s=<\alpha \ldots
+				<a name="3">[3]</a> A sequences of $\Sigma$ values $s=<\alpha \ldots
 				\omega>$ is a total function $1..card(s) \rightarrow \Sigma$. Thus
 				all operations on relations and sets are also allowed on sequences.
 				However, in general they do not yield a sequence.

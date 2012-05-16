@@ -11,7 +11,7 @@
 <!-- Basic Page Needs
     ================================================== -->
 <meta charset="utf-8">
-<title>evalB - Logic calculator</title>
+<title>evalB - ProB Logic calculator</title>
 <meta name="description" content="">
 <meta name="author" content="Jens Bendisposto">
 
@@ -56,18 +56,18 @@
 
 	<div class="container">
 		<h1 class="capital remove-bottom" style="margin-top: 40px">evalB</h1>
-		<h2>Logic Calculator</h2>
+		<h2>ProB Logic Calculator</h2>
 		<hr />
 		<div class="two-thirds column">
 			<textarea name="input" id="input" rows="15" onkeyup="probeval()"></textarea>
 		</div>
 		<div class="one-third column omega" style="vertical-align: text-top;">
-			<h3>Mode</h3>
+			<h3>Quantification Mode</h3>
 			<select size="1" id="mode" name="mode" class="styled-select" onchange="probeval()">
 				<option value="" selected="selected">Existential
-					Quantification</option>
+					(Solving)</option>
 				<option value="tautology">Universal
-					Quantification</option>
+					(Checking)</option>
 			</select>
 			<h3>Examples</h3>
 			<select size="1" id="examples" name="examples" class="styled-select"
@@ -86,7 +86,9 @@
 			<h3>About evalB</h3>
 			<p>evalB is an online calculator for logic formulas. It can
 				evaluate predicates and formulas given in the B notation. Under the
-				hood, evalB uses the ProB animator and model checker.</p>
+				hood, evalB uses the <a href="http://www.stups.uni-duesseldorf.de/ProB/">ProB</a> animator and model checker. The above calculator has a time-out of 2.5 seconds, and <tt>MAXINT</tt> is set to 127 and <tt>MININT</tt> to -128. An alternative version of the calculator is available at the <a href="http://www.formalmind.com/en/blog/prob-logic-calculator"> Formal Mind website</a>.
+You can also <a href="http://www.stups.uni-duesseldorf.de/ProB/index.php5/Download">download ProB</a> for execution on your computer, along with support for <a href="http://en.wikipedia.org/wiki/B"> B</a>, <a href="http://www.event-b.org/"> Event-B</a>, <a href="http://en.wikipedia.org/wiki/Communicating_sequential_processes"> CSP-M</a>,
+<a href="http://research.microsoft.com/en-us/um/people/lamport/tla/tla.html"> TLA+</a>, and <a href="http://en.wikipedia.org/wiki/Z_notation"> Z</a>. There are also 64-bit versions available for Linux and Mac (the above calculator only uses the 32-bit version).</p>
 		</div>
 
 		<div class="sixteen columns">
@@ -249,7 +251,7 @@
 						<td>%x.(P|E)</td>
 					</tr>
 					<tr>
-						<td class="row-label">Intervall $ \{x \mid x \in \mathbb{Z}
+						<td class="row-label">Interval $ \{x \mid x \in \mathbb{Z}
 							\wedge n \leq x \wedge x \leq m\} $</td>
 						<td>n..m</td>
 					</tr>

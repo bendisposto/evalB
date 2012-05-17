@@ -37,12 +37,12 @@ public class Evaluator {
 
 	public String eval(final String formula) throws BParseException {
 		return exec(new RemoteEvaluateCommand(formula,
-				EEvaluationStrategy.evaluate_formula), formula);
+				EEvaluationStrategy.EXISTENTIAL), formula);
 	}
 
 	public String check(final String formula) throws BParseException {
 		return exec(new RemoteEvaluateCommand(formula,
-				EEvaluationStrategy.evaluate_tautology), formula);
+				EEvaluationStrategy.UNIVERSAL), formula);
 	}
 
 	public String exec(final RemoteEvaluateCommand command, final String formula)

@@ -23,7 +23,7 @@
 <!-- CSS
     ================================================== -->
 <link rel="stylesheet" href="stylesheets/plain-base.css">
-<link rel="stylesheet" href="stylesheets/skeleton.css">
+<link rel="stylesheet" href="stylesheets/plain-skeleton.css">
 <link rel="stylesheet" href="stylesheets/layout.css">
 <link rel="stylesheet" href="stylesheets/plain-evalb.css">
 <link rel="stylesheet" href="stylesheets/plain-codemirror.css">
@@ -52,10 +52,10 @@
 	<!-- Delete everything in this .container and get started on your own site! -->
 
 	<div class="container">
-		<div class="two-thirds column">
+		<div class="left">
 			<textarea name="input" id="input" rows="15" onkeyup="probeval()"></textarea>
 		</div>
-		<div class="one-third column omega" style="vertical-align: text-top;">
+		<div class="left-noclear" style="vertical-align: text-top;">
 			<b>Quantification Mode</b>
 			<select size="1" id="mode" name="mode" class="styled-select" onchange="probeval()">
 				<option value="" selected="selected">Existential
@@ -69,8 +69,7 @@
 				<option value="" selected="selected" />
 			</select>
 		</div>
-
-		<div class="two-thirds column">
+		<div class="left">
 			<textarea name="output" id="output" cols="80" rows="5"></textarea>
 		</div>
 

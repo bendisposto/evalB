@@ -1,6 +1,7 @@
 .CodeMirror {
 	float: left;
 	border: 1px solid black;
+	width: "100%"
 }
 
 .CodeMirror-wrap {
@@ -43,3 +44,16 @@ sup, sub {
 .space {
 	 margin-top: 20px;
 }
+
+.left {
+  float: left;
+  clear: both;
+  left: 10px;
+  width="350px"
+}
+.left-noclear {
+  float: left;
+  margin-left: 10px;
+  width="350px"
+}
+

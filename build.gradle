@@ -18,6 +18,7 @@ dependencies {
 	compile "javax.servlet:servlet-api:2.5"
 	compile 'com.google.inject.extensions:guice-servlet:3.0'
 	compile 'com.google.code.gson:gson:1.7.1'
+	compile 'de.prob:tla2b:1.0.0-SNAPSHOT'
 }
 
 def prettyName(String name) {

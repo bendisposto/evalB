@@ -69,6 +69,11 @@
 				<option value="tautology">Universal
 					(Checking)</option>
 			</select>
+			<h3>Formalism</h3>
+			<select size="1" id="formalism" name="formalism" class="styled-select" onchange="probeval()">
+				<option value="classicalb" selected="selected">B Method</option>
+				<option value="tla">TLA+</option>
+			</select>
 			<h3>Examples</h3>
 			<select size="1" id="examples" name="examples" class="styled-select"
 				onchange="load_example()">

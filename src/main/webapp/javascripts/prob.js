@@ -44,7 +44,9 @@ function probeval() {
 	input = urlencode(text);
 	m = document.getElementById('mode').value;
 	mode = urlencode(m);
-	req.open('GET', 'evaluate?input=' + input + '&mode=' + mode, true);
+	f = document.getElementById('formalism').value;
+	formalism = urlencode(f);
+	req.open('GET', 'evaluate?formalism='+formalism+'&input=' + input + '&mode=' + mode, true);
 	sendRequest(toOutput);
 }
 function probevalselection() {

@@ -17,6 +17,7 @@ import com.google.inject.Inject;
 import com.google.inject.Singleton;
 
 import de.be4.classicalb.core.parser.exceptions.BParseException;
+import exceptions.TLA2BException;
 
 @SuppressWarnings("serial")
 @Singleton
@@ -36,7 +37,22 @@ public class EvaluationServlet extends HttpServlet {
 			throws ServletException, IOException {
 		PrintWriter out = res.getWriter();
 		String mode = req.getParameter("mode");
-		String formula = req.getParameter("input");
+		String formalism = req.getParameter("formalism");
+		String input = req.getParameter("input");
+		logger.trace("FORMALISM " + formalism);
+		logger.trace("INPUT " + input);
+
+		String formula = "tla".equals(formalism) ? translateFromTla(input, out) : input;
+
+		if (formula == null)
+			return;
+		else
+			evaluateB(out, mode, formula);
+	}
+
+	private void evaluateB(PrintWriter out, String mode, String formula) {
+		logger.trace("FORMULA " + formula);
+
 		Evaluator evaluator = pool.get();
 		ResultObject result = new ResultObject();
 		logger.trace("Evaluating '{}'", formula);
@@ -52,6 +68,19 @@ public class EvaluationServlet extends HttpServlet {
 			Gson g = new Gson();
 			out.println(g.toJson(result));
 			out.close();
+		}
+	}
+
+	private String translateFromTla(String input, PrintWriter out) {
+		try {
+			return translation.ExpressionTranslator.translateExpression(input);
+		} catch (TLA2BException e) {
+			ResultObject result = new ResultObject();
+			result.setOutput(e.getLocalizedMessage());
+			Gson g = new Gson();
+			out.println(g.toJson(result));
+			out.close();
+			return null;
 		}
 	}
 

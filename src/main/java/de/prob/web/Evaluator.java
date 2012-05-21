@@ -82,7 +82,9 @@ public class Evaluator {
 				throw (BParseException) cause.getCause();
 			}
 			return "EXECUTION ERROR";
-		} finally {
+		} 
+		
+		finally {
 			executor.shutdownNow();
 			this.busy = false;
 		}

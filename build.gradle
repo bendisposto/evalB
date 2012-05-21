@@ -40,11 +40,16 @@ def prettyName(String name) {
 	}
 
 task examples << {
-	def examples = new TreeMap()
-	files { new File("examples").listFiles() }.each {
-		examples[prettyName(it.name)] =  it.text		
+	result = [:]
+	files { new File("examples").listFiles() }.each { 
+		formalism -> 
+			examples = new TreeMap()
+		    formalism.listFiles().each {
+				examples[prettyName(it.name)] =  it.text
+			}
+			result[formalism.getName()] = examples
 	}
-   def output = new groovy.json.JsonBuilder(examples).toString()
+   def output = new groovy.json.JsonBuilder(result).toString()
    def out = new File('src/main/webapp/examples.js')
    if (out.exists()) out.delete()
    out << "example_list = "+output;

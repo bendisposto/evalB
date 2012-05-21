@@ -21,6 +21,7 @@ var delay;
 var editor;
 var output;
 var lasthighlight = -1;
+var formalism = "classicalb";
 
 function urlencode(str) {
 	str = (str + '').toString();
@@ -54,7 +55,9 @@ function probevalselection() {
 	input = urlencode(text);
 	m = document.getElementById('mode').value;
 	mode = urlencode(m);
-	req.open('GET', 'evaluate?input=' + input + '&mode=' + mode, true);
+	f = document.getElementById('formalism').value;
+	formalism = urlencode(f);
+	req.open('GET', 'evaluate?formalism='+formalism+'&input=' + input + '&mode=' + mode, true);
 	sendRequest(selectionHover);
 }
 
@@ -97,14 +100,25 @@ function toInput() {
 
 function load_example() {
 	r = document.getElementById('examples').value;
-	editor.setValue(example_list[r]);
+	editor.setValue(example_list[formalism][r]);
 }
 
 function load_example_list() {
 	s = document.getElementById('examples');
-	 for ( var e in example_list) {
+	while (s.length> 0) {
+	    s.remove(0);
+	} 
+	 s.add(new Option("", ""), null);
+	for ( var e in example_list[formalism]) {
 		 s.add(new Option(e, e), null);
-     }
+    }
+}
+
+function switch_formalism() {
+	formalism = document.getElementById('formalism').value;
+	$("#syntax").load("formalism/"+formalism+"/syntax.html");
+	load_example_list();
+	editor.setValue('1<2');
 }
 
 function initialize() {
@@ -129,7 +143,6 @@ function initialize() {
 		lineWrapping : true,
 		readOnly : "nocursor"
 	});
-	editor.setValue('2**100');
 	setTimeout(probeval, 300);
-	load_example_list();
+	switch_formalism();
 }

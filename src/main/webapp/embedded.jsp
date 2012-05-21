@@ -11,7 +11,7 @@
 <!-- Basic Page Needs
     ================================================== -->
 <meta charset="utf-8">
-<title>evalB - ProB Logic calculator</title>
+<title>ProB Logic calculator</title>
 <meta name="description" content="">
 <meta name="author" content="Jens Bendisposto">
 

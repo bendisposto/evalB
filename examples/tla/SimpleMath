@@ -1,0 +1,16 @@
+(* Examples from SimpleMath.tla (TLA+ tools distribution) *)
+
+LET 
+(***************************************************************************)
+(* This example shows how you can check propositional logic tautologies.   *)
+(***************************************************************************)
+d1 ==  \A F, G \in {TRUE, FALSE} : (F => G) <=> ~F \/ G
+  
+
+(***************************************************************************)
+(* Here is an example showing how you can check that a formula is NOT a    *)
+(* tautology of propositional logic.                                       *)
+(***************************************************************************)
+d2 ==  ~ \A F, G \in {TRUE, FALSE} : (F \/ G) => (F /\ G)
+
+IN d1 /\ d2

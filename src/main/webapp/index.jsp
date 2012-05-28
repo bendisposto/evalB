@@ -117,6 +117,15 @@
 
 		<div id="syntax"></div>
 
+		<div class="sixteen columns">
+			<hr style="margin-top: 20px;" />
+			<h3>Troubleshooting</h3>
+			<p>
+				If you face any problem please submit a report to our <a
+					href="http://jira.cobra.cs.uni-duesseldorf.de/">bug tracking
+					system</a>. 
+			</p>
+		</div>
 		<div class="sixteen columns space">
 			<hr style="margin-top: 0px; margin-bottom: 0px;" />
 			<div id="footer-logo">
@@ -144,7 +153,7 @@
 	<script src="javascripts/prob.js"></script>
 	<script type="text/javascript"
 		src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
-	
+
 
 	<!-- End Document
   ================================================== -->

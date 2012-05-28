@@ -24,14 +24,14 @@
 					</tr>
 					<tr class="row-one">
 						<td class="row-label">$\neg P$</td>
-						<td>\neg P or ~P</td>
+						<td>\neg P</td>
 					</tr>
 						<td class="row-label">boolean values </td>
 						<td>TRUE, FALSE</td>
 					</tr>
 					<tr class="row-one">
-						<td class="row-label">$\neg P$</td>
-						<td>\neg P</td>
+						<td class="row-label">Set of boolean values </td>
+						<td>BOOLEAN</td>
 					</tr>
 				</table>
 			</div>
@@ -59,7 +59,7 @@
 						</tr>
 						<tr>
 							<td class="row-label">$x \not = y$</td>
-							<td>x /= y or x # y</td>
+							<td>x /= y</td>
 						</tr>
 					</table>
 				</div>
@@ -89,11 +89,11 @@
 						</tr>
 						<tr>
 							<td class="row-label">$ S \cup T$</td>
-							<td>S \cup T or S \union T</td>
+							<td>S \cup T</td>
 						</tr>
 						<tr class="row-one">
 							<td class="row-label">$S \cap T$</td>
-							<td>S \cap T or S \intersect T</td>
+							<td>S \cap T</td>
 						</tr>
 						<tr>
 							<td class="row-label">$S \subseteq T$</td>
@@ -145,7 +145,7 @@
 						</tr>
 						<tr>
 							<td class="row-label">$[h_1 \mapsto e_1, \ldots, h_n \mapsto e_n]$</td>
-							<td>[h_1|-> e_1, ..., h_n|-> e_n]</td>
+							<td>[h_1|->e_1,...,h_n|->e_n]</td>
 						</tr>
 						<tr class="row-one">
 							<td class="row-label">$[h_1 : S_1, \ldots, h_n : S_n] $</td>
@@ -163,7 +163,7 @@
 				<table>
 					<tr class="row-one">
 						<td class="row-label">String value</td>
-						<td>"..."</td>
+						<td>e.g. "abc"</td>
 					</tr>
 					<tr>
 						<td class="row-label">Set of all strings</td>
@@ -171,7 +171,7 @@
 					</tr>
 					<tr class="row-one">
 						<td class="row-label">Integer value</td>
-						<td>1, 2, ...</td>
+						<td>e.g. 123</td>
 					</tr>
 				</table>
 			</div>
@@ -185,7 +185,7 @@
 					</tr>
 					<tr>
 						<td class="row-label">Case</td>
-						<td>CASE P_1 -> e_1 [] ... [] P_n ->e_n</td>
+						<td>CASE P_1->e_1[]...[]P_n->e_n</td>
 					</tr>
 					<tr class="row-one">
 						<td class="row-label">let-in</td>
@@ -202,18 +202,18 @@
 		<div class="cheat-box-container eight columns">		
 
 			<div class="cheat-box">
-				<h4>Integers</h4>
+				<h4>Naturals</h4>
 				<table>
 					<tr class="row-one">
-						<td class="row-label">x + y</td>
+						<td class="row-label">$ x + y $</td>
 						<td>x + y</td>
 					</tr>
 					<tr>
-						<td class="row-label">x - y</td>
+						<td class="row-label">$ x - y $</td>
 						<td>x - y</td>
 					</tr>
 					<tr class="row-one">
-						<td class="row-label">x * y</td>
+						<td class="row-label">$ x * y $</td>
 						<td>x * y</td>
 					</tr>
 					<tr>
@@ -221,7 +221,7 @@
 						<td>x \div y</td>
 					</tr>
 					<tr class="row-one">
-						<td class="row-label">x\ \text{mod}\ y</td>
+						<td class="row-label">$ x\ \text{mod}\ y$</td>
 						<td>x % y</td>
 					</tr>
 					<tr>
@@ -244,11 +244,11 @@
 						<td class="row-label">$ x \leq y $</td>
 						<td>x \leq y</td>
 					</tr>
-					<tr class="row-label">
-						<td class="row-label">$ x \dotdot y $</td>
-						<td>x .. y</td>
+					<tr class="row-one">
+						<td class="row-label">Interval $\{x \in \mathbb{Z}: a \leq x \leq b\}$</td>
+						<td>a .. b</td>
 					</tr>
-					<tr>
+					<tr >
 						<td class="row-label">Set of naturals numbers</td>
 						<td>Nat</td>
 					</tr>					
@@ -273,7 +273,7 @@
 				<h4>Sequences</h4>
 				<table>
 					<tr class="row-one">
-						<td class="row-label">Set of all sequences of elements in S</td>
+						<td class="row-label">Set of sequences </td>
 						<td>Seq(S)</td>
 					</tr>
 					<tr>
@@ -339,10 +339,4 @@
 				</table>
 			</div>
 			
-		</div>
-			
-		<div class="sixteen columns space">
-			<p>
-				some more stuff
-			</p>
 		</div>

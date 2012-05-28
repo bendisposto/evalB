@@ -116,7 +116,10 @@ function load_example_list() {
 
 function switch_formalism() {
 	formalism = document.getElementById('formalism').value;
-	$("#syntax").load("formalism/"+formalism+"/syntax.html");
+	$("#syntax").load("formalism/" + formalism + "/syntax.html", function() {
+		MathJax.Hub.Queue([ "Typeset", MathJax.Hub ]);
+	});
+
 	load_example_list();
 	editor.setValue('1<2');
 }

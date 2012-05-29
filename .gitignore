@@ -20,3 +20,4 @@ config.groovy
 src/main/resources/javascript/examples.js
 src/main/webapp/js/javascripts_*
 src/main/webapp/css/stylesheets_*
+src/main/java/de/prob/web/TimeStamp.java

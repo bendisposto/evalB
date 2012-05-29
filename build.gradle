@@ -2,6 +2,8 @@ apply plugin: 'war'
 apply plugin: 'jetty'
 apply plugin: 'eclipse-wtp'
 
+def leTime = System.currentTimeMillis()
+
 repositories {
     maven {
       name "cobra"
@@ -50,12 +52,30 @@ task examples << {
 			result[formalism.getName()] = examples
 	}
    def output = new groovy.json.JsonBuilder(result).toString()
-   def out = new File('src/main/webapp/examples.js')
+   def out = new File('src/main/resources/javascripts/examples.js')
    if (out.exists()) out.delete()
    out << "example_list = "+output;
 }
 
-processResources.dependsOn examples
+
+processResources {
+	dependsOn examples
+	doLast{
+	   def out = new File('src/main/java/de/prob/web/TimeStamp.java')
+	   if (out.exists()) out.delete()
+	   out << 'package de.prob.web;\npublic class TimeStamp { \n    public static final String TIME="'+leTime+'"; \n}'
+	   new File('src/main/webapp/js/').listFiles().each { if (it.getName().startsWith("javascripts")) it.deleteDir()  }  	
+	   new File('src/main/webapp/css/').listFiles().each { if (it.getName().startsWith("stylesheets")) it.deleteDir()  }  	
+	   copy {
+		    from 'src/main/resources/javascripts'
+		    into 'src/main/webapp/js/javascripts_'+leTime
+		}
+		copy {
+		    from 'src/main/resources/stylesheets'
+		    into 'src/main/webapp/css/stylesheets_'+leTime
+		}
+	}
+}
 
 
 httpPort = 8080

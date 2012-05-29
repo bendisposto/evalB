@@ -22,13 +22,13 @@
 
 <!-- CSS
     ================================================== -->
-<link rel="stylesheet" href="stylesheets/base.css">
-<link rel="stylesheet" href="stylesheets/skeleton.css">
-<link rel="stylesheet" href="stylesheets/layout.css">
-<link rel="stylesheet" href="stylesheets/evalb.css">
-<link rel="stylesheet" href="stylesheets/codemirror.css">
-<link rel="stylesheet" href="stylesheets/themes/red.css">
-<link rel="stylesheet" href="stylesheets/themes/green.css">
+<link rel="stylesheet" href="css/stylesheets_<%= de.prob.web.TimeStamp.TIME %>/base.css">
+<link rel="stylesheet" href="css/stylesheets_<%= de.prob.web.TimeStamp.TIME %>/skeleton.css">
+<link rel="stylesheet" href="css/stylesheets_<%= de.prob.web.TimeStamp.TIME %>/layout.css">
+<link rel="stylesheet" href="css/stylesheets_<%= de.prob.web.TimeStamp.TIME %>/evalb.css">
+<link rel="stylesheet" href="css/stylesheets_<%= de.prob.web.TimeStamp.TIME %>/codemirror.css">
+<link rel="stylesheet" href="css/stylesheets_<%= de.prob.web.TimeStamp.TIME %>/themes/red.css">
+<link rel="stylesheet" href="css/stylesheets_<%= de.prob.web.TimeStamp.TIME %>/themes/green.css">
 
 <script type="text/x-mathjax-config">
   MathJax.Hub.Config({tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}});
@@ -145,12 +145,12 @@
 	<!-- JS
       ================================================== -->
 	<!-- <script src="http://code.jquery.com/jquery-1.7.1.min.js"></script> -->
-	<script src="javascripts/tabs.js"></script>
-	<script src="javascripts/jquery-1.7.2.min.js"></script>
-	<script src="javascripts/codemirror.js"></script>
-	<script src="javascripts/hover.js"></script>
-	<script src="examples.js"></script>
-	<script src="javascripts/prob.js"></script>
+	<script src="js/javascripts_<%= de.prob.web.TimeStamp.TIME %>/tabs.js"></script>
+	<script src="js/javascripts_<%= de.prob.web.TimeStamp.TIME %>/jquery-1.7.2.min.js"></script>
+	<script src="js/javascripts_<%= de.prob.web.TimeStamp.TIME %>/codemirror.js"></script>
+	<script src="js/javascripts_<%= de.prob.web.TimeStamp.TIME %>/hover.js"></script>
+	<script src="js/javascripts_<%= de.prob.web.TimeStamp.TIME %>/examples.js"></script>
+	<script src="js/javascripts_<%= de.prob.web.TimeStamp.TIME %>/prob.js"></script>
 	<script type="text/javascript"
 		src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
 

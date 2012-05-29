@@ -17,4 +17,6 @@ src/main/resources/build.properties
 config.groovy
 .cache
 .groovy/
-src/main/webapp/examples.js
+src/main/resources/javascript/examples.js
+src/main/webapp/js/javascripts_*
+src/main/webapp/css/stylesheets_*

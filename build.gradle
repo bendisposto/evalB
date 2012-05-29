@@ -77,6 +77,8 @@ processResources {
 	}
 }
 
+compileJava.dependsOn processResources
+
 
 httpPort = 8080
 stopPort = 9451

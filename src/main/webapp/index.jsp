@@ -22,13 +22,20 @@
 
 <!-- CSS
     ================================================== -->
-<link rel="stylesheet" href="css/stylesheets_<%= de.prob.web.TimeStamp.TIME %>/base.css">
-<link rel="stylesheet" href="css/stylesheets_<%= de.prob.web.TimeStamp.TIME %>/skeleton.css">
-<link rel="stylesheet" href="css/stylesheets_<%= de.prob.web.TimeStamp.TIME %>/layout.css">
-<link rel="stylesheet" href="css/stylesheets_<%= de.prob.web.TimeStamp.TIME %>/evalb.css">
-<link rel="stylesheet" href="css/stylesheets_<%= de.prob.web.TimeStamp.TIME %>/codemirror.css">
-<link rel="stylesheet" href="css/stylesheets_<%= de.prob.web.TimeStamp.TIME %>/themes/red.css">
-<link rel="stylesheet" href="css/stylesheets_<%= de.prob.web.TimeStamp.TIME %>/themes/green.css">
+<link rel="stylesheet"
+	href="css/stylesheets_<%=de.prob.web.TimeStamp.TIME%>/base.css">
+<link rel="stylesheet"
+	href="css/stylesheets_<%=de.prob.web.TimeStamp.TIME%>/skeleton.css">
+<link rel="stylesheet"
+	href="css/stylesheets_<%=de.prob.web.TimeStamp.TIME%>/layout.css">
+<link rel="stylesheet"
+	href="css/stylesheets_<%=de.prob.web.TimeStamp.TIME%>/evalb.css">
+<link rel="stylesheet"
+	href="css/stylesheets_<%=de.prob.web.TimeStamp.TIME%>/codemirror.css">
+<link rel="stylesheet"
+	href="css/stylesheets_<%=de.prob.web.TimeStamp.TIME%>/themes/red.css">
+<link rel="stylesheet"
+	href="css/stylesheets_<%=de.prob.web.TimeStamp.TIME%>/themes/green.css">
 
 <script type="text/x-mathjax-config">
   MathJax.Hub.Config({tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}});
@@ -94,10 +101,8 @@
 				predicates and formulas given in the B notation. Under the hood, we
 				use the <a href="http://www.stups.uni-duesseldorf.de/ProB/">ProB</a>
 				animator and model checker. The above calculator has a time-out of
-				2.5 seconds, and
-				<tt>MAXINT</tt>
-				is set to 127 and
-				<tt>MININT</tt>
+				2.5 seconds, and <span style="font-family: monospace">MAXINT</span>
+				is set to 127 and <span style="font-family: monospace">MININT</span>
 				to -128. An alternative version of the calculator is available at
 				the <a
 					href="http://www.formalmind.com/en/blog/prob-logic-calculator">
@@ -123,7 +128,7 @@
 			<p>
 				If you face any problem please submit a report to our <a
 					href="http://jira.cobra.cs.uni-duesseldorf.de/">bug tracking
-					system</a>. 
+					system</a>.
 			</p>
 		</div>
 		<div class="sixteen columns space">
@@ -145,12 +150,15 @@
 	<!-- JS
       ================================================== -->
 	<!-- <script src="http://code.jquery.com/jquery-1.7.1.min.js"></script> -->
-	<script src="js/javascripts_<%= de.prob.web.TimeStamp.TIME %>/tabs.js"></script>
-	<script src="js/javascripts_<%= de.prob.web.TimeStamp.TIME %>/jquery-1.7.2.min.js"></script>
-	<script src="js/javascripts_<%= de.prob.web.TimeStamp.TIME %>/codemirror.js"></script>
-	<script src="js/javascripts_<%= de.prob.web.TimeStamp.TIME %>/hover.js"></script>
-	<script src="js/javascripts_<%= de.prob.web.TimeStamp.TIME %>/examples.js"></script>
-	<script src="js/javascripts_<%= de.prob.web.TimeStamp.TIME %>/prob.js"></script>
+	<script src="js/javascripts_<%=de.prob.web.TimeStamp.TIME%>/tabs.js"></script>
+	<script
+		src="js/javascripts_<%=de.prob.web.TimeStamp.TIME%>/jquery-1.7.2.min.js"></script>
+	<script
+		src="js/javascripts_<%=de.prob.web.TimeStamp.TIME%>/codemirror.js"></script>
+	<script src="js/javascripts_<%=de.prob.web.TimeStamp.TIME%>/hover.js"></script>
+	<script
+		src="js/javascripts_<%=de.prob.web.TimeStamp.TIME%>/examples.js"></script>
+	<script src="js/javascripts_<%=de.prob.web.TimeStamp.TIME%>/prob.js"></script>
 	<script type="text/javascript"
 		src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
 

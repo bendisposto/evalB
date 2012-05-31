@@ -22,13 +22,20 @@
 
 <!-- CSS
     ================================================== -->
-<link rel="stylesheet" href="stylesheets/plain-base.css">
-<link rel="stylesheet" href="stylesheets/plain-skeleton.css">
-<link rel="stylesheet" href="stylesheets/layout.css">
-<link rel="stylesheet" href="stylesheets/plain-evalb.css">
-<link rel="stylesheet" href="stylesheets/plain-codemirror.css">
-<link rel="stylesheet" href="stylesheets/themes/red.css">
-<link rel="stylesheet" href="stylesheets/themes/green.css">
+<link rel="stylesheet"
+	href="css/stylesheets_<%=de.prob.web.TimeStamp.TIME%>/plain-base.css">
+<link rel="stylesheet"
+	href="css/stylesheets_<%=de.prob.web.TimeStamp.TIME%>/skeleton.css">
+<link rel="stylesheet"
+	href="css/stylesheets_<%=de.prob.web.TimeStamp.TIME%>/layout.css">
+<link rel="stylesheet"
+	href="css/stylesheets_<%=de.prob.web.TimeStamp.TIME%>/evalb.css">
+<link rel="stylesheet"
+	href="css/stylesheets_<%=de.prob.web.TimeStamp.TIME%>/plain-codemirror.css">
+<link rel="stylesheet"
+	href="css/stylesheets_<%=de.prob.web.TimeStamp.TIME%>/themes/red.css">
+<link rel="stylesheet"
+	href="css/stylesheets_<%=de.prob.web.TimeStamp.TIME%>/themes/green.css">
 
 
 <!--[if lt IE 9]>
@@ -63,6 +70,12 @@
 				<option value="tautology">Universal
 					(Checking)</option>
 			</select>
+			<b>Formalism</b>
+			<select size="1" id="formalism" name="formalism"
+				class="styled-select" onchange="switch_formalism()">
+				<option value="classicalb" selected="selected">B Method</option>
+				<option value="tla">TLA+</option>
+			</select>
 			<b>Examples</b>
 			<select size="1" id="examples" name="examples" class="styled-select"
 				onchange="load_example()">
@@ -88,12 +101,15 @@
 	<!-- JS
       ================================================== -->
 	<!-- <script src="http://code.jquery.com/jquery-1.7.1.min.js"></script> -->
-	<script src="javascripts/tabs.js"></script>
-	<script src="javascripts/jquery-1.7.2.min.js"></script>
-	<script src="javascripts/codemirror.js"></script>
-	<script src="javascripts/hover.js"></script>
-	<script src="examples.js"></script>
-	<script src="javascripts/prob.js"></script>
+	<script src="js/javascripts_<%=de.prob.web.TimeStamp.TIME%>/tabs.js"></script>
+	<script
+		src="js/javascripts_<%=de.prob.web.TimeStamp.TIME%>/jquery-1.7.2.min.js"></script>
+	<script
+		src="js/javascripts_<%=de.prob.web.TimeStamp.TIME%>/codemirror.js"></script>
+	<script src="js/javascripts_<%=de.prob.web.TimeStamp.TIME%>/hover.js"></script>
+	<script
+		src="js/javascripts_<%=de.prob.web.TimeStamp.TIME%>/examples.js"></script>
+	<script src="js/javascripts_<%=de.prob.web.TimeStamp.TIME%>/prob.js"></script>
 
 	<!-- End Document
   ================================================== -->

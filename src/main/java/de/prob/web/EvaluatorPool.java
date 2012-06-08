@@ -7,7 +7,6 @@ import javax.servlet.ServletContext;
 import com.google.inject.Inject;
 import com.google.inject.Provider;
 import com.google.inject.Singleton;
-import com.sun.management.OSMBeanFactory;
 
 import de.prob.ProBException;
 import de.prob.animator.command.ICommand;
@@ -28,7 +27,7 @@ public class EvaluatorPool implements Provider<Evaluator> {
 			new SetPreferenceCommand("TIME_OUT", "500"),
 			new StartAnimationCommand() };
 
-	private static final int POOLSIZE = 1;
+	private static final int POOLSIZE = 4;
 	Evaluator[] pool = new Evaluator[POOLSIZE];
 	int c = 0;
 	int rounds = 0;

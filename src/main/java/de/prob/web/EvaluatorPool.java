@@ -1,8 +1,13 @@
 package de.prob.web;
 
+import java.io.File;
+
+import javax.servlet.ServletContext;
+
 import com.google.inject.Inject;
 import com.google.inject.Provider;
 import com.google.inject.Singleton;
+import com.sun.management.OSMBeanFactory;
 
 import de.prob.ProBException;
 import de.prob.animator.command.ICommand;
@@ -23,13 +28,27 @@ public class EvaluatorPool implements Provider<Evaluator> {
 			new SetPreferenceCommand("TIME_OUT", "500"),
 			new StartAnimationCommand() };
 
-	private static final int POOLSIZE = 4;
+	private static final int POOLSIZE = 1;
 	Evaluator[] pool = new Evaluator[POOLSIZE];
 	int c = 0;
 	int rounds = 0;
 
 	@Inject
-	public EvaluatorPool(Provider<StateSpace> ap) {
+	public EvaluatorPool(ServletContext context, Provider<StateSpace> ap) {
+
+		String os = "linux";
+		String osname = System.getProperty("os.name");
+
+		if (osname.trim().toLowerCase().indexOf("win") >= 0)
+			os = "windows";
+		if (osname.trim().toLowerCase().indexOf("mac") >= 0)
+			os = "macos";
+
+		String realPath = context.getRealPath("probcli" + File.separator + os
+				+ File.separator);
+
+		System.setProperty("prob.home", realPath);
+
 		for (int i = 0; i < pool.length; i++) {
 			StateSpace stateSpace = ap.get();
 			try {

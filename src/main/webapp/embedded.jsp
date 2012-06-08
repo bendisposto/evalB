@@ -25,18 +25,13 @@
 <link rel="stylesheet"
 	href="css/stylesheets_<%=de.prob.web.TimeStamp.TIME%>/plain-base.css">
 <link rel="stylesheet"
-	href="css/stylesheets_<%=de.prob.web.TimeStamp.TIME%>/skeleton.css">
+	href="css/stylesheets_<%=de.prob.web.TimeStamp.TIME%>/plain-skeleton.css">
 <link rel="stylesheet"
 	href="css/stylesheets_<%=de.prob.web.TimeStamp.TIME%>/layout.css">
 <link rel="stylesheet"
-	href="css/stylesheets_<%=de.prob.web.TimeStamp.TIME%>/evalb.css">
+	href="css/stylesheets_<%=de.prob.web.TimeStamp.TIME%>/plain-evalb.css">
 <link rel="stylesheet"
 	href="css/stylesheets_<%=de.prob.web.TimeStamp.TIME%>/plain-codemirror.css">
-<link rel="stylesheet"
-	href="css/stylesheets_<%=de.prob.web.TimeStamp.TIME%>/themes/red.css">
-<link rel="stylesheet"
-	href="css/stylesheets_<%=de.prob.web.TimeStamp.TIME%>/themes/green.css">
-
 
 <!--[if lt IE 9]>
           <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
@@ -60,7 +55,7 @@
 
 	<div class="container">
 		<div class="left">
-			<textarea name="input" id="input" rows="15" onkeyup="probeval()"></textarea>
+			<textarea name="input" id="input" rows="3" onkeyup="probeval()"></textarea>
 		</div>
 		<div class="left-noclear" style="vertical-align: text-top;">
 			<b>Quantification Mode</b>

@@ -84,7 +84,7 @@
 			<h3>Examples</h3>
 			<select size="1" id="examples" name="examples" class="styled-select"
 				onchange="load_example()">
-				<option value="" selected="selected" />
+				<option value="" selected="selected" ></option>
 			</select>
 		</div>
 

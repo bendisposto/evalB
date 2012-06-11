@@ -36,16 +36,19 @@ public class Evaluator {
 	}
 
 	public String eval(final String formula) throws BParseException {
-		return exec(new RemoteEvaluateCommand(formula,
-				EEvaluationStrategy.EXISTENTIAL), formula);
+		EEvaluationStrategy strategy = EEvaluationStrategy.EXISTENTIAL;
+		return exec(new RemoteEvaluateCommand(formula, strategy), formula,
+				strategy);
 	}
 
 	public String check(final String formula) throws BParseException {
-		return exec(new RemoteEvaluateCommand(formula,
-				EEvaluationStrategy.UNIVERSAL), formula);
+		EEvaluationStrategy strategy = EEvaluationStrategy.UNIVERSAL;
+		return exec(new RemoteEvaluateCommand(formula, strategy), formula,
+				strategy);
 	}
 
-	public String exec(final RemoteEvaluateCommand command, final String formula)
+	public String exec(final RemoteEvaluateCommand command,
+			final String formula, final EEvaluationStrategy strategy)
 			throws BParseException {
 		ExecutorService executor = Executors.newSingleThreadExecutor();
 		Future<String> future = executor.submit(new Callable<String>() {
@@ -54,7 +57,12 @@ public class Evaluator {
 				try {
 					space.execute(command);
 					EvaluationResult first = command.getValue();
-					return first.toString();
+					String p1 = ((strategy == EEvaluationStrategy.EXISTENTIAL) ? "Existentially Quantified Predicate is "
+							: "Universially Quantified Predicate is ")
+							+ first.value;
+
+					return p1 + "\n" + first.explanation + "\n     "
+							+ first.solution;
 				} catch (ProBException e) {
 					Throwable cause = e.getCause();
 					if (cause != null)
@@ -82,8 +90,8 @@ public class Evaluator {
 				throw (BParseException) cause.getCause();
 			}
 			return "EXECUTION ERROR";
-		} 
-		
+		}
+
 		finally {
 			executor.shutdownNow();
 			this.busy = false;

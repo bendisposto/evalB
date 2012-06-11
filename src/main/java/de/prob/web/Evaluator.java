@@ -57,12 +57,20 @@ public class Evaluator {
 				try {
 					space.execute(command);
 					EvaluationResult first = command.getValue();
+					String value = first.value;
+					if (!"TRUE".equals(value) && !"FALSE".equals(value)) {
+						return "Expression value is " + value;
+					}
+
+					String solution = first.solution;
+					
 					String p1 = ((strategy == EEvaluationStrategy.EXISTENTIAL) ? "Existentially Quantified Predicate is "
 							: "Universially Quantified Predicate is ")
-							+ first.value;
+							+ value;
 
-					return p1 + "\n" + first.explanation + "\n     "
-							+ first.solution;
+					if (solution.trim().isEmpty())
+						return "Predicate is "+value;
+					return p1 + "\n" + first.explanation + "\n     " + solution;
 				} catch (ProBException e) {
 					Throwable cause = e.getCause();
 					if (cause != null)

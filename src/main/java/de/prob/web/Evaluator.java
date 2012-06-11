@@ -63,32 +63,31 @@ public class Evaluator {
 					String value = first.value;
 					String resultType = first.getResultType();
 					String solution = first.solution;
+					String warn = "";
+					if (first.hasEnumerationWarnings()) {
+						warn = "\n\n*** Warning: the predicate contains infinite sets. ProB might have missed solutions/counterexamples.";
+					}
 
 					if (!solution.trim().isEmpty()) {
-						solution = "\n"+first.explanation + "\n     " + solution; 
+						solution = "\n" + first.explanation + "\n     "
+								+ solution;
 					}
-					
+
 					if ("expression".equals(resultType)) {
 						return "Expression value is " + value;
 					}
 					if ("predicate".equals(resultType)) {
-						return "Predicate is " + value;
+						return "Predicate is " + value + warn;
 					}
 					String vars = Joiner.on(",")
 							.join(first.getQuantifiedVars());
 					if ("exists".equals(resultType)) {
-						return "Existentially quantified predicate over variables ["
-								+ vars
-								+ "] is "
-								+ value
-								+  solution;
+						return "Existentially quantified predicate over "
+								+ vars + " is " + value + solution + warn;
 					}
 					if ("forall".equals(resultType)) {
-						return "Universally quantified predicate over variables ["
-								+ vars
-								+ "] is "
-								+ value
-								+ solution;
+						return "Universally quantified predicate over " + vars
+								+ " is " + value + solution + warn;
 					}
 
 					return first.toString();

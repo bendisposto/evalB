@@ -11,6 +11,8 @@ import java.util.concurrent.TimeoutException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.google.common.base.Joiner;
+
 import de.be4.classicalb.core.parser.exceptions.BException;
 import de.be4.classicalb.core.parser.exceptions.BParseException;
 import de.prob.ProBException;
@@ -57,20 +59,40 @@ public class Evaluator {
 				try {
 					space.execute(command);
 					EvaluationResult first = command.getValue();
+
 					String value = first.value;
-					if (!"TRUE".equals(value) && !"FALSE".equals(value)) {
+					String resultType = first.getResultType();
+					String solution = first.solution;
+
+					if (!solution.trim().isEmpty()) {
+						solution = "\n"+first.explanation + "\n     " + solution; 
+					}
+					
+					if ("expression".equals(resultType)) {
 						return "Expression value is " + value;
 					}
+					if ("predicate".equals(resultType)) {
+						return "Predicate is " + value;
+					}
+					String vars = Joiner.on(",")
+							.join(first.getQuantifiedVars());
+					if ("exists".equals(resultType)) {
+						return "Existentially quantified predicate over variables ["
+								+ vars
+								+ "] is "
+								+ value
+								+  solution;
+					}
+					if ("forall".equals(resultType)) {
+						return "Universally quantified predicate over variables ["
+								+ vars
+								+ "] is "
+								+ value
+								+ solution;
+					}
 
-					String solution = first.solution;
-					
-					String p1 = ((strategy == EEvaluationStrategy.EXISTENTIAL) ? "Existentially Quantified Predicate is "
-							: "Universially Quantified Predicate is ")
-							+ value;
+					return first.toString();
 
-					if (solution.trim().isEmpty())
-						return "Predicate is "+value;
-					return p1 + "\n" + first.explanation + "\n     " + solution;
 				} catch (ProBException e) {
 					Throwable cause = e.getCause();
 					if (cause != null)

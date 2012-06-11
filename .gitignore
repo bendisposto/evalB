@@ -22,3 +22,4 @@ src/main/webapp/js/javascripts_*
 src/main/webapp/css/stylesheets_*
 src/main/webapp/probcli/
 src/main/java/de/prob/web/TimeStamp.java
+src/main/resources/javascripts/examples.js

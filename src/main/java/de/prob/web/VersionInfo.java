@@ -3,7 +3,6 @@ package de.prob.web;
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
 
-import de.prob.ProBException;
 import de.prob.animator.command.GetVersionCommand;
 
 @Singleton
@@ -16,11 +15,7 @@ public class VersionInfo {
 	public VersionInfo(EvaluatorPool pool) {
 		GetVersionCommand command = new GetVersionCommand();
 		Evaluator evaluator = pool.get();
-		try {
-			evaluator.space.execute(command);
-		} catch (ProBException e) {
-			e.printStackTrace();
-		}
+		evaluator.space.execute(command);
 		this.version = "probcli "
 				+ command.getVersionString().replaceAll("\n", "<br />");
 	}

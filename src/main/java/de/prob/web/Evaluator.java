@@ -15,7 +15,6 @@ import com.google.common.base.Joiner;
 
 import de.be4.classicalb.core.parser.exceptions.BException;
 import de.be4.classicalb.core.parser.exceptions.BParseException;
-import de.prob.ProBException;
 import de.prob.animator.command.RemoteEvaluateCommand;
 import de.prob.animator.command.RemoteEvaluateCommand.EEvaluationStrategy;
 import de.prob.animator.domainobjects.EvaluationResult;
@@ -92,7 +91,7 @@ public class Evaluator {
 
 					return first.toString();
 
-				} catch (ProBException e) {
+				} catch (Throwable e) {
 					Throwable cause = e.getCause();
 					if (cause != null)
 						return "ERROR: " + cause.getMessage();

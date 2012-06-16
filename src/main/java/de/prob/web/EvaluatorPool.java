@@ -37,7 +37,11 @@ public class EvaluatorPool implements Provider<Evaluator> {
 		String realPath = context.getRealPath("probcli" + File.separator + os
 				+ File.separator);
 
-		System.setProperty("prob.home", realPath);
+		
+		if (realPath != null) {
+			System.setProperty("prob.home", realPath);
+		}
+		
 
 		try {
 			ICommand[] losCommandos = {

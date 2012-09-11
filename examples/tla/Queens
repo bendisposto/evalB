@@ -1,11 +1,11 @@
 LET
-	Init == /\ q=[i \in 1..n |-> 0]
-        /\ n=8
-
-	Solve == 
-         /\ q' \in [1..n -> 1..n]
-         /\ \A i \in 1..n : (\A j \in 2..n : i<j => q'[i] # q'[j] /\ q'[i]+i-j # q'[j] /\ q'[i]-i+j # q'[j])
-
+    N==8
+	Solve == /\ Queens \in [1..N -> 1..N]
+			 /\ \A i \in 1..N :
+					\A j \in 2..N :i<j => 
+						/\ Queens[i] # Queens[j]
+						/\ Queens[i]+i-j # Queens[j]
+						/\ Queens[i]-i+j # Queens[j]
 IN
-	Init /\ Solve
+	Solve
       

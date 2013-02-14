@@ -119,7 +119,7 @@ task downloadCli << {
 
 
 compileJava.dependsOn processResources
-//war.dependsOn downloadCli
+war.dependsOn downloadCli
 
 
 httpPort = 8080

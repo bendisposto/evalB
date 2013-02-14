@@ -1,6 +1,4 @@
-S \in 1..9 /\ E \in 0..9 /\ N \in 0..9 /\
-   D \in 0..9 /\ M \in 1..9 /\ O \in 0..9 /\ 
-   R \in 0..9 /\ Y \in 0..9 /\
+{S,E,N,D, M,O,R, Y} \subseteq 0..9 /\
    S >0 /\ M >0 /\ 
    Cardinality({S,E,N,D, M,O,R, Y}) = 8 /\ 
    S*1000 + E*100 + N*10 + D +

@@ -17,7 +17,8 @@ import com.google.inject.Inject;
 import com.google.inject.Singleton;
 
 import de.be4.classicalb.core.parser.exceptions.BParseException;
-import exceptions.TLA2BException;
+import de.tla2b.exceptions.TLA2BException;
+import de.tla2b.translation.ExpressionTranslator;
 
 @SuppressWarnings("serial")
 @Singleton
@@ -73,7 +74,7 @@ public class EvaluationServlet extends HttpServlet {
 
 	private String translateFromTla(String input, PrintWriter out) {
 		try {
-			return translation.ExpressionTranslator.translateExpression(input);
+			return ExpressionTranslator.translateExpression(input);
 		} catch (TLA2BException e) {
 			ResultObject result = new ResultObject();
 			result.setOutput(e.getLocalizedMessage());

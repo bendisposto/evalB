@@ -9,10 +9,10 @@ import com.google.inject.Provider;
 import com.google.inject.Singleton;
 
 import de.be4.classicalb.core.parser.exceptions.BException;
-import de.prob.animator.command.ICommand;
+import de.prob.animator.command.AbstractCommand;
 import de.prob.animator.command.LoadBProjectFromStringCommand;
 import de.prob.animator.command.SetPreferenceCommand;
-import de.prob.animator.command.notImplemented.StartAnimationCommand;
+import de.prob.animator.command.StartAnimationCommand;
 import de.prob.statespace.StateSpace;
 
 @Singleton
@@ -44,7 +44,8 @@ public class EvaluatorPool implements Provider<Evaluator> {
 		
 
 		try {
-			ICommand[] losCommandos = {
+			
+			AbstractCommand[] losCommandos = {
 					new LoadBProjectFromStringCommand("MACHINE empty END"),
 					new SetPreferenceCommand("CLPFD", "TRUE"),
 					new SetPreferenceCommand("BOOL_AS_PREDICATE", "TRUE"),

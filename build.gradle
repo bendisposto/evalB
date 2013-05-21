@@ -22,8 +22,7 @@ dependencies {
 	compile 'com.google.inject.extensions:guice-servlet:3.0'
 	compile 'com.google.code.gson:gson:1.7.1'
 	compile 'de.prob:tla2b:1.0.3-SNAPSHOT'
-	compile 'secret:stuff1:1.0.0'
-	//compile 'secret:stuff2:1.0.0'
+	compile 'com.microsoft:tla2tools:1.4.6'
 }
 
 sourceSets {

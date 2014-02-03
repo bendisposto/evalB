@@ -1,0 +1,15 @@
+PEOPLE={"Roberta", "Thelma", "Steve", "Pete"} & FEMALE={"Roberta", "Thelma"} & 
+MALE={"Steve", "Pete"} &
+HoldsJob : JOBS -->> PEOPLE &
+card(HoldsJob) = 8 &
+JobsOf = HoldsJob~ &
+!x.(x : PEOPLE => card(JobsOf[{x}]) = 2) &
+JOBS = {"chef", "guard", "nurse", "clerk", "police", "teacher", "actor", "boxer"} &
+HoldsJob("nurse") : MALE &
+HoldsJob("actor") : MALE &
+Husband : FEMALE >+> MALE &
+(HoldsJob("chef"), HoldsJob("clerk")) : Husband &
+"boxer" /: JobsOf[{"Roberta"}] &
+QualifiedJobs = {"police", "teacher", "nurse"} &
+"Pete" /: HoldsJob[QualifiedJobs] &
+Golfers = {"Roberta", HoldsJob("chef"), HoldsJob("police")} & card(Golfers) = 3

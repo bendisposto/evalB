@@ -1,0 +1,343 @@
+		<div class="sixteen columns">
+			<h3>Supported TLA<sup>+</sup> Syntax</h3>
+		</div>
+
+		<div class="cheat-box-container eight columns">
+			<div class="cheat-box">
+				<h4>Logic</h4>
+				<table>
+					<tr class="row-one">
+						<td class="row-label">$P \wedge Q$</td>
+						<td>P /\ Q</td>
+					</tr>
+					<tr>
+						<td class="row-label">$P \vee Q$</td>
+						<td>P \/ Q</td>
+					</tr>
+					<tr class="row-one">
+						<td class="row-label">$P \implies Q$</td>
+						<td>P => Q</td>
+					</tr>
+					<tr>
+						<td class="row-label">$P \Leftrightarrow Q$</td>
+						<td>P <=> Q</td>
+					</tr>
+					<tr class="row-one">
+						<td class="row-label">$\neg P$</td>
+						<td>\neg P</td>
+					</tr>
+					<tr>
+						<td class="row-label">boolean values </td>
+						<td>TRUE, FALSE</td>
+					</tr>
+					<tr class="row-one">
+						<td class="row-label">Set of boolean values </td>
+						<td>BOOLEAN</td>
+					</tr>
+				</table>
+			</div>
+		
+			<div class="cheat-box">
+				<h4>Quantifiers</h4>
+				<table>
+					<tr class="row-one">
+						<td class="row-label">$\exists x \in S \mid P$</td>
+						<td>\E x \in S : P</td>
+					</tr>
+					<tr>
+						<td class="row-label">$\forall x \in S \mid P$</td>
+						<td>\A x \in S : P</td>
+					</tr>
+				</table>
+			</div>
+		
+				<div class="cheat-box">
+					<h4>Equality</h4>
+					<table>
+						<tr class="row-one">
+							<td class="row-label">$x = y$</td>
+							<td>x = y</td>
+						</tr>
+						<tr>
+							<td class="row-label">$x \not = y$</td>
+							<td>x /= y</td>
+						</tr>
+					</table>
+				</div>
+		
+				<div class="cheat-box">
+					<h4>Set Construction</h4>
+					<table>
+						<tr class="row-one">
+							<td class="row-label">Set enumeration</td>
+							<td>{a,b,c}</td>
+						</tr>
+						<tr>
+							<td class="row-label">Set comprehension $ \{x \in S :  P\} $</td>
+							<td>{x \in S : P}</td>
+						</tr>
+						<tr class="row-one">
+							<td class="row-label">Set comprehension2 $ \{e : x \in S \} $</td>
+							<td>{e : x \in S}</td>
+						</tr>
+						<tr>
+							<td class="row-label">$e \in S$</td>
+							<td>e \in S</td>
+						</tr>
+						<tr class="row-one">
+							<td class="row-label">$e \notin S$</td>
+							<td>e \notin S</td>
+						</tr>
+						<tr>
+							<td class="row-label">$ S \cup T$</td>
+							<td>S \cup T</td>
+						</tr>
+						<tr class="row-one">
+							<td class="row-label">$S \cap T$</td>
+							<td>S \cap T</td>
+						</tr>
+						<tr>
+							<td class="row-label">$S \subseteq T$</td>
+							<td>S \subseteq T</td>
+						</tr>
+						<tr class="row-one">
+							<td class="row-label">Set difference $S \backslash T$</td>
+							<td>S \ t</td>
+						</tr>
+						<tr>
+							<td class="row-label">Set of subsets</td>
+							<td>SUBSET S</td>
+						</tr>
+					</table>
+				</div>
+		
+				<div class="cheat-box">
+					<h4>Functions</h4>
+					<table>
+						<tr class="row-one">
+							<td class="row-label">Function application</td>
+							<td>f[e]</td>
+						</tr>
+						<tr>
+							<td class="row-label">Domain</td>
+							<td>DOMAIN f</td>
+						</tr>
+						<tr class="row-one">
+							<td class="row-label">$[x \in S \mapsto e]$</td>
+							<td>[x \in S |-> e]</td>
+						</tr>
+						<tr>
+							<td class="row-label">$[ S \rightarrow T ]$</td>
+							<td>[S -> T]</td>
+						</tr>
+						<tr class="row-one">
+							<td class="row-label">$[ f$ EXCEPT $![h] = e]$</td>
+							<td>[f EXCEPT ![h] = e]</td>
+						</tr>
+					</table>
+				</div>
+				
+				<div class="cheat-box">
+					<h4>Records</h4>
+					<table>
+						<tr class="row-one">
+							<td class="row-label">$r.id$</td>
+							<td>r.id</td>
+						</tr>
+						<tr>
+							<td class="row-label">$[h_1 \mapsto e_1, \ldots, h_n \mapsto e_n]$</td>
+							<td>[h_1|->e_1,...,h_n|->e_n]</td>
+						</tr>
+						<tr class="row-one">
+							<td class="row-label">$[h_1 : S_1, \ldots, h_n : S_n] $</td>
+							<td>[h_1:S_1,...,h_n:S_n]</td>
+						</tr>
+						<tr>
+							<td class="row-label">$[r$ EXCEPT $!.h = e]$</td>
+							<td> [r EXCEPT !.h = e] </td>
+						</tr>
+					</table>
+				</div>
+				
+			<div class="cheat-box">
+				<h4>Strings and Numbers</h4>
+				<table>
+					<tr class="row-one">
+						<td class="row-label">String value</td>
+						<td>e.g. "abc"</td>
+					</tr>
+					<tr>
+						<td class="row-label">Set of all strings</td>
+						<td>STRING</td>
+					</tr>
+					<tr class="row-one">
+						<td class="row-label">Integer value</td>
+						<td>e.g. 123</td>
+					</tr>
+				</table>
+			</div>
+			
+			<div class="cheat-box">
+				<h4>Miscellaneous constructs</h4>
+				<table>
+					<tr class="row-one">
+						<td class="row-label">if-then-else</td>
+						<td>IF p THEN e_1 ELSE e_2</td>
+					</tr>
+					<tr>
+						<td class="row-label">Case</td>
+						<td>CASE P_1->e_1[]...[]P_n->e_n</td>
+					</tr>
+					<tr class="row-one">
+						<td class="row-label">let-in</td>
+						<td>LET d == e_1 IN e</td>
+					</tr>
+				</table>
+			</div>
+			
+		
+		</div>
+			
+		<!-- /cheat-box-container -->
+		
+		<div class="cheat-box-container eight columns">		
+
+			<div class="cheat-box">
+				<h4>Naturals</h4>
+				<table>
+					<tr class="row-one">
+						<td class="row-label">$ x + y $</td>
+						<td>x + y</td>
+					</tr>
+					<tr>
+						<td class="row-label">$ x - y $</td>
+						<td>x - y</td>
+					</tr>
+					<tr class="row-one">
+						<td class="row-label">$ x * y $</td>
+						<td>x * y</td>
+					</tr>
+					<tr>
+						<td class="row-label">$x \div y$</td>
+						<td>x \div y</td>
+					</tr>
+					<tr class="row-one">
+						<td class="row-label">$ x\ \text{mod}\ y$</td>
+						<td>x % y</td>
+					</tr>
+					<tr>
+						<td class="row-label">$ x ^ y $</td>
+						<td>x ^ y</td>
+					</tr>
+					<tr class="row-one">
+						<td class="row-label">$ x > y $</td>
+						<td>x > y</td>
+					</tr>
+					<tr>
+						<td class="row-label">$ x < y $</td>
+						<td>x < y</td>
+					</tr>
+					<tr class="row-one">
+						<td class="row-label">$ x \geq y $</td>
+						<td>x \geq y</td>
+					</tr>
+					<tr>
+						<td class="row-label">$ x \leq y $</td>
+						<td>x \leq y</td>
+					</tr>
+					<tr class="row-one">
+						<td class="row-label">Interval $\{x \in \mathbb{Z}: a \leq x \leq b\}$</td>
+						<td>a .. b</td>
+					</tr>
+					<tr >
+						<td class="row-label">Set of naturals numbers</td>
+						<td>Nat</td>
+					</tr>					
+				</table>
+			</div>
+			
+			<div class="cheat-box">
+				<h4>Integers</h4>
+				<table>
+					<tr class="row-one">
+						<td class="row-label">unary minus</td>
+						<td>-x</td>
+					</tr>
+					<tr>
+						<td class="row-label">Set of Integers</td>
+						<td>Int</td>
+					</tr>
+				</table>
+			</div>
+			
+			<div class="cheat-box">
+				<h4>Sequences</h4>
+				<table>
+					<tr class="row-one">
+						<td class="row-label">Set of sequences </td>
+						<td>Seq(S)</td>
+					</tr>
+					<tr>
+						<td class="row-label">Length</td>
+						<td>Len(s)</td>
+					</tr>
+					<tr class="row-one">
+						<td class="row-label">Concatenation</td>
+						<td>s \o t</td>
+					</tr>
+					<tr>
+						<td class="row-label">Append</td>
+						<td>Append(s, e)</td>
+					</tr>
+					<tr class="row-one">
+						<td class="row-label">Head</td>
+						<td>Head(s)</td>
+					</tr>
+					<tr>
+						<td class="row-label">Subsequence</td>
+						<td>SubSeq(s, m, n)</td>
+					</tr>
+				</table>
+			</div>
+			
+			<div class="cheat-box">
+				<h4>FiniteSets</h4>
+				<table>
+					<tr class="row-one">
+						<td class="row-label">Cardinality</td>
+						<td>Cardinality(s)</td>
+					</tr>
+					<tr>
+						<td class="row-label">Finite</td>
+						<td>IsFiniteSet(s)</td>
+					</tr>
+				</table>
+			</div>
+			
+			<div class="cheat-box">
+				<h4>TLA2B</h4>
+				<table>
+					<tr class="row-one">
+						<td class="row-label">Minimum</td>
+						<td>MinOfSet(S)</td>
+					</tr>
+					<tr>
+						<td class="row-label">Maximum</td>
+						<td>MaxOfSet(S)</td>
+					</tr>
+					<tr class="row-one">
+						<td class="row-label">Set product</td>
+						<td>SetProduct(S)</td>
+					</tr>
+					<tr>
+						<td class="row-label">Set summation</td>
+						<td>SetSummation(S)</td>
+					</tr>
+					<tr class="row-one">
+						<td class="row-label">Set of permuted sequences</td>
+						<td>PermutedSequences(S)</td>
+					</tr>
+				</table>
+			</div>
+			
+		</div>

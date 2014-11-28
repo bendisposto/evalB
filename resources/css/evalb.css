@@ -1,0 +1,73 @@
+.CodeMirror {
+	float: left;
+	border: 1px solid black;
+	background-color: #ebeac7;
+}
+
+#footer-logo {
+  font-size: 12px;
+  font-family: "Impact";
+  text-transform: uppercase;
+  color: #47282c;
+}
+
+.CodeMirror-wrap {
+	margin-top: 20px;
+	float: left;
+	border: 1px solid black;
+	background-color: #EEFFEE;
+}
+
+.styled-select {
+   background: transparent;
+   width: 268px;
+   padding: 5px;
+   font-size: 16px;
+   border: 1px solid #ccc;
+   height: 34px;
+}
+
+.activeline {
+	background: #BcB498 !important;
+}
+
+
+.cheat-box-container {
+  background-color: #c4c49c;
+  border-radius: 5px;
+  -moz-border-radius: 5px;
+  margin-top: 20px;
+}
+
+.cheat-box {
+  padding: 20px;
+}
+
+table {
+  font-family: monospace;
+  margin-top: 20px;
+  width: 100%;
+}
+
+td {
+  font-size: 16px;
+  padding: 3px;
+}
+
+.row-one {
+  background-color: #f2efe4;
+}
+
+.row-label {
+  color: #666;
+  text-transform: uppercase;
+}
+
+sup, sub {
+       line-height: 0;
+       font-size: 80%;
+}
+
+.space {
+	 margin-top: 20px;
+}

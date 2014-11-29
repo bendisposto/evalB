@@ -6,12 +6,15 @@
             [hiccup.page :as hp]
             [hiccup.element :as he]
             [clojure.data.json :as json]
-            [clojure.core.async :as a :refer [go chan <!! >!!]])
+            [clojure.core.async :as a :refer [alts!! chan <!! >!! timeout]])
   (:use ring.server.standalone
         [ring.middleware file-info file])
   (:import de.prob.animator.command.CbcSolveCommand
+           (de.prob.animator.domainobjects ClassicalB EvalResult ComputationNotCompletedResult)
            de.prob.unicode.UnicodeTranslator
            de.tla2b.exceptions.TLA2BException
+           de.prob.Main
+           de.prob.scripting.Api
                                         ;de.tla2b.translation.ExpressionTranslator
            ))
 
@@ -29,23 +32,23 @@
               :result (.getReason res)}))
 
 
-(defmulti run-eval :formalism)
+(defmulti run-eval (fn [_ r] (:formalism r)))
 (defmethod run-eval :b [ss {:keys [input] :as resp}]
-  (let [c (CbcSolveCommand. (ClassicalB. input))]
-    (try (do
-           (.execute ss c)
-           (process-result (.getValue c) resp))
-         (catch Exception e
-           (into resp {:status :error
-                       :result (.getMessage e)})))))
+  (try (let [c (CbcSolveCommand. (ClassicalB. input))]
+         (.execute ss c)
+         (process-result (.getValue c) resp))
+       (catch Exception e
+         (into resp {:status :error
+                     :result (.getMessage e)}))))
 
 
 (defn solve [request]
-  (let [solver (<!! @worker)
-        result (solver request)]
-    (>!! @worker solver)
-    result))
-
+  (let [[solver _] (alts!! [@worker (timeout 5000)])]
+    (if solver
+      (let [result (solver request)]
+        (>!! @worker solver)
+        result)
+      (into request {:status :error :result "The system is under heavy load. Please try again later."}))))
 
 
 (defn unicode [s]
@@ -89,23 +92,33 @@
   (-> app
       wrap-params))
 
-(defn mk-worker [animator]
-  (>!! @worker
-       (fn [request]
-         (let [result-future (future (run-eval animator request))
-               result (deref result-future 3000 (into request {:result :error :result "Timeout"}))]
-           (future-cancel result-future)
-           result))))
+(defn mk-worker [tn]
+  (let [api (.getInstance (Main/getInjector) Api)
+        animator (.. (.b_load api tn) getStateSpace)]
+    (fn [request]
+      (assoc (let [result-future (future (run-eval animator request))
+                result (deref
+                        result-future
+                        3000
+                        (into request {:status :error :result "Timeout"}))]
+            (future-cancel result-future)
+            result)
+        :animator-id (.getId animator)))))
+
+(defn create-empty-machine []
+  (let [tf (java.io.File/createTempFile "evalb" ".mch" nil)
+        tn (.getAbsolutePath tf)
+        ]
+    (.deleteOnExit tf)
+    (spit tf "MACHINE empty \n END")
+    tn))
 
 (defn init []
   (reset! worker (chan instances))
-  (let [tf (java.io.File/createTempFile "evalb" ".mch" nil)
-        tn (.getAbsolutePath tf)
-        api (.getInstance (Main/getInjector) Api)]
-    (.deleteOnExit tf)
-    (spit tf "MACHINE empty \n END")
+  (let [tn (create-empty-machine)]
     (doseq [_ (range instances)]
-      (mk-worker (.. (.b_load api tn) getStateSpace))))
+      (>!! @worker (mk-worker tn)))
+    )
   (println :init))
 
 (defn destroy []

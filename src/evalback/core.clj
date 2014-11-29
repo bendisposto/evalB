@@ -5,53 +5,46 @@
             [hiccup.core :as h]
             [hiccup.page :as hp]
             [hiccup.element :as he]
-            [clojure.data.json :as json])
+            [clojure.data.json :as json]
+            [clojure.core.async :as a :refer [go chan <!! >!!]])
   (:use ring.server.standalone
         [ring.middleware file-info file])
-  (:import de.prob.animator.IAnimator
+  (:import de.prob.animator.command.CbcSolveCommand
            de.prob.unicode.UnicodeTranslator
            de.tla2b.exceptions.TLA2BException
-           ;de.tla2b.translation.ExpressionTranslator
+                                        ;de.tla2b.translation.ExpressionTranslator
            ))
 
-(def instances 1)
+(def instances 2)
 (defonce server (atom nil))
-(defonce animators (atom {}))
-(defonce robin (atom 0))
+(defonce worker (atom nil))
+
+(defmulti process-result (fn [r _] (class r)))
+(defmethod process-result EvalResult [res resp]
+  (into resp {:status :ok
+              :result (.getValue res)
+              :bindings (into {} (.getSolutions res))}))
+(defmethod process-result ComputationNotCompletedResult [res resp]
+  (into resp {:status :error
+              :result (.getReason res)}))
 
 
-(defn get-animator []
-  (let [s (swap! robin (fn [c] (mod (inc c) instances)))]
-    (get @animators s)))
-
-(defmulti process-result class)
-(defmethod process-result EvalResult [res]
-  {:status :ok
-   :result (.getValue res)
-   :bindings (into {} (.getSolutions res))})
-(defmethod process-result ComputationNotCompletedResult [res]
-  {:status :error
-   :result (.getReason res)})
+(defmulti run-eval :formalism)
+(defmethod run-eval :b [ss {:keys [input] :as resp}]
+  (let [c (CbcSolveCommand. (ClassicalB. input))]
+    (try (do
+           (.execute ss c)
+           (process-result (.getValue c) resp))
+         (catch Exception e
+           (into resp {:status :error
+                       :result (.getMessage e)})))))
 
 
-(defmulti evaluate :formalism)
-
-(defmethod evaluate :b [{:keys [input] :as resp}]
-
-
-  
-  #_(let [r (future
-            (try
-              (process-result (.eval (get-space) input))
-              (catch Exception e {:status :error :result (.getMessage e)})))]
-    (into resp (deref r 3000 {:status :timeout :result "Timeout"}))))
-
-#_(defmethod evaluate :tla [{:keys [input] :as resp}]
-  (let [r (future
-            (try
-              (process-result (.eval (get-space) (ExpressionTranslator/translateExpression input)))
-              (catch Exception e {:status :error :result (.getMessage e)})))]
-    (into resp (deref r 3000 {:status :timeout :result "Timeout"}))))
+(defn solve [request]
+  (let [solver (<!! @worker)
+        result (solver request)]
+    (>!! @worker solver)
+    result))
 
 
 
@@ -85,7 +78,7 @@
        (resource :available-media-types ["text/html" "application/clojure" "application/json"]
                  :handle-ok
                  (fn [context]
-                   (let [r (evaluate {:formalism  (keyword formalism) :input formula})]
+                   (let [r (solve {:formalism  (keyword formalism) :input formula})]
                      (condp =
                          (get-in context [:representation :media-type])
                        "text/html" (html-result formula r)
@@ -96,22 +89,28 @@
   (-> app
       wrap-params))
 
+(defn mk-worker [animator]
+  (>!! @worker
+       (fn [request]
+         (let [result-future (future (run-eval animator request))
+               result (deref result-future 3000 (into request {:result :error :result "Timeout"}))]
+           (future-cancel result-future)
+           result))))
+
 (defn init []
+  (reset! worker (chan instances))
   (let [tf (java.io.File/createTempFile "evalb" ".mch" nil)
         tn (.getAbsolutePath tf)
         api (.getInstance (Main/getInjector) Api)]
     (.deleteOnExit tf)
     (spit tf "MACHINE empty \n END")
-    (reset! spaces
-            (into {} (for [x (range 4)]
-                       [x (.. (.b_load api tn)
-                              getStateSpace
-                              getRoot
-                              (anyOperation nil))]))))
+    (doseq [_ (range instances)]
+      (mk-worker (.. (.b_load api tn) getStateSpace))))
   (println :init))
 
 (defn destroy []
-  (swap! spaces {})
+  (doseq [_ (range instances)] (<!! @worker))
+  (reset! worker nil)
   (println :destroy))
 
 (defn get-handler []

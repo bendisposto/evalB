@@ -6,10 +6,11 @@
   :repositories [["cobra" "http://cobra.cs.uni-duesseldorf.de/artifactory/repo"]]
   :plugins [[lein-ring "0.8.11"]]
   :ring {:handler liberator-tutorial.core/handler}
-  :dependencies [[org.clojure/clojure "1.4.0"]
+  :dependencies [[org.clojure/clojure "1.7.0-alpha4"]
                  [liberator "0.10.0"]
                  [compojure "1.1.3"]
                  [org.clojure/data.json "0.2.5"]
+                 [org.clojure/core.async "0.1.346.0-17112a-alpha"]
                  [de.prob2/de.prob2.kernel "2.0.0-milestone-20-SNAPSHOT"]
                  [hiccup "1.0.5"]
                  [ring/ring-core "1.2.1"]

@@ -71,3 +71,7 @@ sup, sub {
 .space {
 	 margin-top: 20px;
 }
+
+.version {
+    margin-left: 20px;
+}

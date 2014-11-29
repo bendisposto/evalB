@@ -66,19 +66,21 @@
 		<h2>Logic Calculator</h2>
 		<hr />
 		<div class="two-thirds column">
-			<textarea name="input" id="input" rows="15" onkeyup="probeval()"></textarea>
+			<textarea name="input" id="input" rows="15"
+			          onkeyup="probeval()"></textarea>
+      	<div class="version">probcli version <span id="versionnumber"></span></div>
 		</div>
 		<div class="one-third column omega" style="vertical-align: text-top;">
 			<h3>Quantification Mode</h3>
 			<select size="1" id="mode" name="mode" class="styled-select"
 				onchange="probeval()">
-				<option value="" selected="selected">Existential (Solving)</option>
-				<option value="tautology">Universal (Checking)</option>
+				<option value="existential" selected="selected">Existential (Solving)</option>
+				<option value="universal">Universal (Checking)</option>
 			</select>
 			<h3>Formalism</h3>
 			<select size="1" id="formalism" name="formalism"
 				class="styled-select" onchange="switch_formalism()">
-				<option value="classicalb" selected="selected">B Method</option>
+				<option value="b" selected="selected">B Method</option>
 				<option value="tla">TLA+</option>
 			</select>
 			<h3>Examples</h3>
@@ -137,7 +139,7 @@
 				(C) 2012, <a href="http://www.stups.uni-duesseldorf.de">STUPS
 					Group</a>, HHU Duesseldorf
 			</div>
-			<div class="version"></div>
+		
 		</div>
 
 		<div id="selectioneval"
@@ -150,14 +152,15 @@
 	<!-- JS
       ================================================== -->
 	<!-- <script src="http://code.jquery.com/jquery-1.7.1.min.js"></script> -->
-	<script src="js/tabs.js"></script>
+
 	<script
 		src="js/jquery-1.7.2.min.js"></script>
+	<script src="js/tabs.js"></script>
 	<script
 		src="js/codemirror.js"></script>
 	<script src="js/hover.js"></script>
-	<!-- <script
-		src="js/javascripts_<%=de.prob.web.TimeStamp.TIME%>/examples.js"></script> -->
+	<script
+		src="js//examples.js"></script>
 	<script src="js/prob.js"></script>
 	<script type="text/javascript"
 		src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>

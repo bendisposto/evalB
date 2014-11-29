@@ -1,7 +1,7 @@
 (ns evalback.core
   (:require [liberator.core :refer [resource defresource]]
             [ring.middleware.params :refer [wrap-params]]
-            [compojure.core :refer [defroutes ANY]]
+            [compojure.core :refer [defroutes ANY GET POST]]
             [hiccup.core :as h]
             [hiccup.page :as hp]
             [hiccup.element :as he]
@@ -75,26 +75,37 @@
 (defn json-result [formula res]
   (json/write-str (assoc res :input formula)))
 
+(defn old-json [{:keys [status result]}]
+  (json/write-str {:output (str "The predicate is " result ".\n")}))
+
+(defn get-api [] (.getInstance (Main/getInjector) Api))
 
 (defroutes app
+  (ANY "/version" [] (str (.getVersion (get-api))))
+  (ANY "/json/eval/:formalism/:mode/:formula" [formalism mode formula]
+       (let [r (solve {:formalism  (keyword formalism) :input formula :mode (keyword mode)})]
+         (old-json r)))
+
+  
   (ANY "/eval/:formalism/:formula" [formalism formula]
-       (resource :available-media-types ["text/html" "application/clojure" "application/json"]
-                 :handle-ok
-                 (fn [context]
-                   (let [r (solve {:formalism  (keyword formalism) :input formula})]
-                     (condp =
-                         (get-in context [:representation :media-type])
-                       "text/html" (html-result formula r)
-                       "application/clojure" (edn-result formula r)
-                       "application/json" (json-result formula r)))))))
+         (resource :available-media-types ["text/html" "application/clojure" "application/json"]
+                   :handle-ok
+                   (fn [context]
+                     (let [r (solve {:formalism  (keyword formalism) :input formula})]
+                       (condp =
+                           (get-in context [:representation :media-type])
+                         "text/html" (html-result formula r)
+                         "application/clojure" (edn-result formula r)
+                         "application/json" (json-result formula r)))))))
 
 (def handler
   (-> app
       wrap-params))
 
+
+
 (defn mk-worker [tn]
-  (let [api (.getInstance (Main/getInjector) Api)
-        animator (.. (.b_load api tn) getStateSpace)]
+  (let [animator (.. (.b_load (get-api) tn) getStateSpace)]
     (fn [request]
       (assoc (let [result-future (future (run-eval animator request))
                 result (deref

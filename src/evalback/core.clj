@@ -19,6 +19,8 @@
            ))
 
 (def instances 2)
+(def prob-timeout 3000)
+(def request-timeout 6500)
 (defonce server (atom nil))
 (defonce worker (atom nil))
 
@@ -43,7 +45,7 @@
 
 
 (defn solve [request]
-  (let [[solver _] (alts!! [@worker (timeout 5000)])]
+  (let [[solver _] (alts!! [@worker (timeout request-timeout)])]
     (if solver
       (let [result (solver request)]
         (>!! @worker solver)
@@ -75,8 +77,11 @@
 (defn json-result [formula res]
   (json/write-str (assoc res :input formula)))
 
-(defn old-json [{:keys [status result]}]
-  (json/write-str {:output (str "The predicate is " result ".\n")}))
+(defn old-json [{:keys [status result bindings]}]
+  (json/write-str
+   {:output
+    (apply str "The predicate is " result ".\n"
+           (for [[k v] bindings] (str k "=" v "\n")))}))
 
 (defn get-api [] (.getInstance (Main/getInjector) Api))
 
@@ -85,35 +90,39 @@
   (ANY "/json/eval/:formalism/:mode/:formula" [formalism mode formula]
        (let [r (solve {:formalism  (keyword formalism) :input formula :mode (keyword mode)})]
          (old-json r)))
-
   
+  (POST "/xxx" [formalism mode input] 
+    (let [r (solve {:formalism  (keyword formalism) 
+                    :input input 
+                    :mode (keyword mode)})]
+         (old-json r)))
+
   (ANY "/eval/:formalism/:formula" [formalism formula]
-         (resource :available-media-types ["text/html" "application/clojure" "application/json"]
-                   :handle-ok
-                   (fn [context]
-                     (let [r (solve {:formalism  (keyword formalism) :input formula})]
-                       (condp =
-                           (get-in context [:representation :media-type])
-                         "text/html" (html-result formula r)
-                         "application/clojure" (edn-result formula r)
-                         "application/json" (json-result formula r)))))))
+       (resource :available-media-types ["text/html" "application/clojure" "application/json"]
+                 :handle-ok
+                 (fn [context]
+                   (let [r (solve {:formalism  (keyword formalism) :input formula})]
+                     (condp =
+                         (get-in context [:representation :media-type])
+                       "text/html" (html-result formula r)
+                       "application/clojure" (edn-result formula r)
+                       "application/json" (json-result formula r)))))))
 
 (def handler
   (-> app
       wrap-params))
 
 
-
 (defn mk-worker [tn]
   (let [animator (.. (.b_load (get-api) tn) getStateSpace)]
     (fn [request]
       (assoc (let [result-future (future (run-eval animator request))
-                result (deref
-                        result-future
-                        3000
-                        (into request {:status :error :result "Timeout"}))]
-            (future-cancel result-future)
-            result)
+                   result (deref
+                           result-future
+                           prob-timeout
+                           (into request {:status :error :result "Timeout"}))]
+               (future-cancel result-future)
+               result)
         :animator-id (.getId animator)))))
 
 (defn create-empty-machine []
@@ -146,7 +155,8 @@
                                         ; Makes static assets in $PROJECT_DIR/resources/public/ available.
       (wrap-file "resources")
                                         ; Content-Type, Content-Length, and Last Modified headers for files in body
-      (wrap-file-info)))
+      (wrap-file-info)
+      wrap-params))
 
 (defn start-server
   "used for starting the server in development mode from REPL"

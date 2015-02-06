@@ -43,13 +43,14 @@ function version() {
 
 function probeval() {
   text = editor.getValue();
-  input = urlencode(text);
+  //input = urlencode(text);
   m = document.getElementById('mode').value;
-  mode = urlencode(m);
+  //mode = urlencode(m);
   f = document.getElementById('formalism').value;
-  formalism = urlencode(f);
-  req.open('GET', 'json/eval/'+formalism+'/' + mode + '/' + input, true);
-  sendRequest(toOutput);
+  //formalism = urlencode(f);
+  $.post('xxx', { formalism: f, mode: m, input: text }).done(displayOutput);
+  //req.open('POST', 'json/eval/'+formalism+'/' + mode + '/' + input, true);
+  //sendRequest(toOutput);
 }
 function probevalselection() {
   text = editor.getSelection();
@@ -69,6 +70,21 @@ function selectionHover() {
   } else {
     alert("loading" + ajax.readyState);
   }
+}
+
+function displayOutput(data) {
+  var obj = jQuery.parseJSON(data);
+    output.setValue(obj.output);
+    if (obj.highlight > 0) {
+      lasthighlight = obj.highlight - 1;
+      editor.setLineClass(lasthighlight, null, "activeline");
+      output.setOption("theme", "red");
+    } else {
+      if (lasthighlight > -1) {
+        editor.setLineClass(lasthighlight, null, null);
+        output.setOption("theme", "green");
+      }
+    }
 }
 
 function toOutput() {

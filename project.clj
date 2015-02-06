@@ -5,6 +5,7 @@
             :url "http://www.eclipse.org/legal/epl-v10.html"}
   :repositories [["cobra" "http://cobra.cs.uni-duesseldorf.de/artifactory/repo"]]
   :plugins [[lein-ring "0.8.11"]]
+  :java-source-paths ["src/java"]
   :ring {:handler liberator-tutorial.core/handler}
   :dependencies [[org.clojure/clojure "1.7.0-alpha4"]
                  [liberator "0.10.0"]

@@ -24,22 +24,34 @@
 (defonce server (atom nil))
 (defonce worker (atom nil))
 
-(defmulti process-result (fn [r _] (class r)))
-(defmethod process-result EvalResult [res resp]
-  (into resp {:status :ok
-              :result (.getValue res)
-              :bindings (into {} (.getSolutions res))}))
-(defmethod process-result ComputationNotCompletedResult [res resp]
+(defmulti process-result (fn [r _ _ _] (class r)))
+(defmethod process-result EvalResult [res cbf introduced resp]
+  (let [result (.getValue res)
+        bindings (into {} (.getSolutions res))]
+    (into resp {:status :ok
+                :input cbf
+                :introduced introduced
+                :result result
+                :bindings bindings})))
+
+(defmethod process-result ComputationNotCompletedResult [res _ _ resp]
   (into resp {:status :error
               :result (.getReason res)}))
+
+(defn mk-formula [input]
+  (let [cbf (ClassicalB. input)
+        pred? (= "#PREDICATE" (.getKind cbf))]
+    (if pred? [cbf []] (let [gs (str (gensym "ProB_Var_"))] [(ClassicalB. (str gs  " = " input)) gs]))))
 
 
 (defmulti run-eval (fn [_ r] (:formalism r)))
 (defmethod run-eval :b [ss {:keys [input] :as resp}]
-  (try (let [c (CbcSolveCommand. (ClassicalB. input))]
+  (try (let [[cbf introduced] (mk-formula input)
+             c (CbcSolveCommand. cbf)]
          (.execute ss c)
-         (process-result (.getValue c) resp))
+         (process-result (.getValue c) cbf introduced resp))
        (catch Exception e
+         (println e)
          (into resp {:status :error
                      :result (.getMessage e)}))))
 
@@ -77,25 +89,29 @@
 (defn json-result [formula res]
   (json/write-str (assoc res :input formula)))
 
-(defn old-json [{:keys [status result bindings]}]
+(defn valid-reply [result input introduced bindings]
+  (println [result input introduced bindings])  
+  (if (seq introduced)
+    (get bindings introduced "No solution computed.")
+    (apply str "Predicate is " (if result "satisfiable" "not satisfiable") ".\n" (for [[k v] bindings] (str k "=" v "\n")))))
+
+(defn old-json [{:keys [status result input introduced  bindings]}]
+  (println :s status :r result :b bindings)
   (json/write-str
-   {:output
-    (apply str "The predicate is " result ".\n"
-           (for [[k v] bindings] (str k "=" v "\n")))}))
+   (if (= status :error)
+     {:output (str "Error: " result)}
+     {:output (valid-reply result input introduced bindings)})))
 
 (defn get-api [] (.getInstance (Main/getInjector) Api))
 
 (defroutes app
   (ANY "/version" [] (str (.getVersion (get-api))))
-  (ANY "/json/eval/:formalism/:mode/:formula" [formalism mode formula]
-       (let [r (solve {:formalism  (keyword formalism) :input formula :mode (keyword mode)})]
-         (old-json r)))
-  
-  (POST "/xxx" [formalism mode input] 
-    (let [r (solve {:formalism  (keyword formalism) 
-                    :input input 
-                    :mode (keyword mode)})]
-         (old-json r)))
+
+
+  (POST "/xxx" [formalism input]
+        (let [r (solve {:formalism  (keyword formalism)
+                        :input input })]
+          (old-json r)))
 
   (ANY "/eval/:formalism/:formula" [formalism formula]
        (resource :available-media-types ["text/html" "application/clojure" "application/json"]
@@ -123,7 +139,7 @@
                            (into request {:status :error :result "Timeout"}))]
                (future-cancel result-future)
                result)
-        :animator-id (.getId animator)))))
+             :animator-id (.getId animator)))))
 
 (defn create-empty-machine []
   (let [tf (java.io.File/createTempFile "evalb" ".mch" nil)

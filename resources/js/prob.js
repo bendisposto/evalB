@@ -44,32 +44,12 @@ function version() {
 function probeval() {
   text = editor.getValue();
   //input = urlencode(text);
-  m = document.getElementById('mode').value;
   //mode = urlencode(m);
   f = document.getElementById('formalism').value;
   //formalism = urlencode(f);
-  $.post('xxx', { formalism: f, mode: m, input: text }).done(displayOutput);
+  $.post('xxx', { formalism: f, input: text }).done(displayOutput);
   //req.open('POST', 'json/eval/'+formalism+'/' + mode + '/' + input, true);
   //sendRequest(toOutput);
-}
-function probevalselection() {
-  text = editor.getSelection();
-  input = urlencode(text);
-  m = document.getElementById('mode').value;
-  mode = urlencode(m);
-  f = document.getElementById('formalism').value;
-  formalism = urlencode(f);
-  req.open('GET', 'json/eval/'+formalism+'/' + mode + '/' + input, true);
-  sendRequest(selectionHover);
-}
-
-function selectionHover() {
-  if (req.readyState == 4) {
-    var obj = jQuery.parseJSON(req.responseText);
-    document.getElementById('selectioneval').innerHTML = obj.output;
-  } else {
-    alert("loading" + ajax.readyState);
-  }
 }
 
 function displayOutput(data) {
@@ -145,16 +125,6 @@ function initialize() {
   version();
   editor = CodeMirror.fromTextArea(document.getElementById("input"), {
     lineNumbers : true,
-    onCursorActivity : function() {
-      var sel = editor.getSelection();
-      if (sel && sel != '') {
-        ShowContent('selectioneval');
-        clearTimeout(delay);
-        delay = setTimeout(probevalselection, 300);
-      } else {
-        HideContent('selectioneval');
-      }
-    },
     onChange : function() {
       clearTimeout(delay);
       delay = setTimeout(probeval, 300);

@@ -1,6 +1,0 @@
-
-x >= 0 /\ x <= 100 /\
-y >= 0 /\ y <= 100 /\
-x * y - 37 * y + 71 * x - 2627 = 0
-        
-\* Source: http://pexforfun.com:80/default.aspx?language=CSharp&sample=NonLinearArithmetic *\

@@ -1,5 +1,0 @@
-/* Find values for n which the n-Queens puzzle has 92 solutions */
-card({queens| queens : 1..n >-> 1..n &
-      !(q1,q2).(q1:1..n & q2:2..n & q2>q1
-          => queens(q1)+(q2-q1) /= queens(q2) &
-             queens(q1)+(q1-q2) /= queens(q2))}) = 92 & n:1..50

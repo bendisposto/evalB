@@ -1,12 +1,0 @@
-/*
-Find a different digit (between 0 and 9) for each capital letter in the following equation:
-K I S S * K I S S = P A S S I O N
-(Found at http://www.cse.unsw.edu.au/~cs4418/2010/Lectures/ )
-*/
-    {K,P} <: 1..9 &
-    {I,S,A,O,N} <: 0..9 &
-
-    (1000*K+100*I+10*S+S) * (1000*K+100*I+10*S+S) 
-     =  1000000*P+100000*A+10000*S+1000*S+100*I+10*O+N &
-
-    card({K, I, S, P, A, O, N}) = 7

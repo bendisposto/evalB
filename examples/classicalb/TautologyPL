@@ -1,3 +1,0 @@
-((A=TRUE & B=TRUE) => C=TRUE) <=> (A=TRUE => (B=TRUE => C=TRUE))
-
-/* Tautology from http://en.wikipedia.org/wiki/Tautology_(logic) */

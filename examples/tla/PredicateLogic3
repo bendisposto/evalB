@@ -1,8 +1,0 @@
-LET
-	S == 2..8
-	P(x) == x > 3
-	Q(x) == x < 6
-
-IN
-	(\A x \in S : P(x) /\ Q(x)) <=> (\A x \in S : P(x)) /\ (\A x \in S : Q(x))
-	

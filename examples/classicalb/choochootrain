@@ -1,4 +1,0 @@
-/* Find all solutions to puzzle: CHOO + CHOO = TRAIN */
-{C,H,O,T,R,A,I,N| {C,T}<:1..9 & {H,O,R,A,I,N} <:0..9 &
- 22*O + 200*H + 2000*C = T*10000+R*1000+A*100+I*10+N &
- card({C,H,O,T,R,A,I,N})=8}

@@ -1,9 +1,0 @@
-/* We define a simple toplogy of track sections : */
-next = {"L"|->"A","A"|->"B","B"|->"C","B"|->"D",
-        "D"|->"E", "D"|->"K", "E"|->"F", "F"|->"G"}
-& /* now we specify which sections are occupied  by which train: */
-occupied = {"A"|->"Train1", "B"|->"Train1", "F"|->"Train2"}
-&
-r1 = occupied~[{"Train1"}] & /* the sections occupied by a train */
-n1 = closure1(next)[r1] & /* the reachable sections, in forward direction */
-o1 = occupied[n1] /* which trains occupy these; should be equal to {"Train1"}; but it is not */

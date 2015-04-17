@@ -10,11 +10,12 @@
   (:use ring.server.standalone
         [ring.middleware file-info file])
   (:import de.prob.animator.command.CbcSolveCommand
-           (de.prob.animator.domainobjects ClassicalB EvalResult ComputationNotCompletedResult)
+           (de.prob.animator.domainobjects ClassicalB TLA EvalResult ComputationNotCompletedResult)
            de.prob.unicode.UnicodeTranslator
            de.tla2b.exceptions.TLA2BException
            de.prob.Main
            de.prob.scripting.Api
+           de.be4.classicalb.core.parser.node.AImplicationPredicate
                                         ;de.tla2b.translation.ExpressionTranslator
            ))
 
@@ -34,20 +35,39 @@
                 :result result
                 :bindings bindings})))
 
-(defmethod process-result ComputationNotCompletedResult [res _ _ resp]
-  (into resp {:status :error
-              :result (.getReason res)}))
+(defmethod process-result ComputationNotCompletedResult [res cbf _ resp]
+  (println :xxx res resp)
+  (let [reason (.getReason res)]
+    (condp = reason
+      "contradiction found" (into resp {:status :ok :result false :input cbf})
+      (into resp {:status :error :result reason}))))
 
-(defn mk-formula [input]
-  (let [cbf (ClassicalB. input)
+(defmulti instantiate (fn [f i] f))
+
+(defmethod instantiate :b [_ input] (ClassicalB. input))
+(defmethod instantiate :tla [_ input] (TLA. input))
+
+(defn mk-formula [formalism input]
+  (let [cbf (instantiate formalism input)
         pred? (= "#PREDICATE" (.getKind cbf))]
-    (if pred? [cbf []] (let [gs (str (gensym "ProB_Var_"))] [(ClassicalB. (str gs  " = " input)) gs]))))
+    (if pred? [cbf []] (let [gs (str (gensym "ProB_Var_"))] [(instantiate formalism (str gs  " = " input)) gs]))))
 
 
-(defmulti run-eval (fn [_ r] (:formalism r)))
-(defmethod run-eval :b [ss {:keys [input] :as resp}]
-  (try (let [[cbf introduced] (mk-formula input)
+(defn top-level-implication? [cbf]
+  (println :cbf cbf)
+  (let [ast (.getAst cbf)
+        pu (.getPParseUnit ast)
+        pred (.getPredicate pu)]
+    (if (instance? AImplicationPredicate pred)
+      "\nYou use an implication at the top level. This is most likely not what you meant. Remember that free variables are existentially quantified.\n\n"
+      "")))
+
+
+
+(defn run-eval  [ss {:keys [input formalism] :as resp}]
+  (try (let [[cbf introduced] (mk-formula formalism input)
              c (CbcSolveCommand. cbf)]
+         (println :solve formalism input cbf)
          (.execute ss c)
          (process-result (.getValue c) cbf introduced resp))
        (catch Exception e
@@ -90,10 +110,12 @@
   (json/write-str (assoc res :input formula)))
 
 (defn valid-reply [result input introduced bindings]
-  (println [result input introduced bindings])  
   (if (seq introduced)
     (get bindings introduced "No solution computed.")
-    (apply str "Predicate is " (if result "satisfiable" "not satisfiable") ".\n" (for [[k v] bindings] (str k "=" v "\n")))))
+    (apply str "Predicate is " (if result "satisfiable" "not satisfiable") ".\n"
+           (top-level-implication? input)
+           (if (seq bindings) "Solution: \n" "")
+           (for [[k v] bindings] (str "  " k "=" v "\n")))))
 
 (defn old-json [{:keys [status result input introduced  bindings]}]
   (println :s status :r result :b bindings)

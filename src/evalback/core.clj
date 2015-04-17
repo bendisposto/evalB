@@ -50,7 +50,7 @@
 (defn mk-formula [formalism input]
   (let [cbf (instantiate formalism input)
         pred? (= "#PREDICATE" (.getKind cbf))]
-    (if pred? [cbf []] (let [gs (str (gensym "ProB_Var_"))] [(instantiate formalism (str gs  " = " input)) gs]))))
+    (if pred? [cbf nil] (let [gs (str (gensym "ProB_Var_"))] [(instantiate formalism (str gs  " = " input)) gs]))))
 
 
 (defn top-level-implication? [cbf]
@@ -110,11 +110,13 @@
   (json/write-str (assoc res :input formula)))
 
 (defn valid-reply [result input introduced bindings]
-  (if (seq introduced)
-    (get bindings introduced "No solution computed.")
+  (if introduced
+    (apply str (get bindings introduced "No solution computed.")
+           (if (seq bindings) "\n\nSolution: \n" "")
+           (for [[k v] bindings] (if-not (= k introduced) (str "  " k "=" v "\n") "")))
     (apply str "Predicate is " (if result "satisfiable" "not satisfiable") ".\n"
            (top-level-implication? input)
-           (if (seq bindings) "Solution: \n" "")
+           (if (seq bindings) "\nSolution: \n" "")
            (for [[k v] bindings] (str "  " k "=" v "\n")))))
 
 (defn old-json [{:keys [status result input introduced  bindings]}]

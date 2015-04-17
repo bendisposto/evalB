@@ -1,14 +1,19 @@
-# evalback
+# The ProB Logic Calculator
 
-A Clojure library designed to ... well, that part is up to you.
+This is the re-development of the ProB Logic Calculator. The old version is tagged as 0.1. 
 
-## Usage
 
-FIXME
+## Acknowledgements
+We use some great libaries: 
+- The Skeleton css library (http://www.getskeleton.com/)
+- jQuery (http://jquery.com/)
+- MathJax (http://www.mathjax.org/)
+- CodeMirror (http://codemirror.net/)
+
 
 ## License
 
-Copyright © 2014 FIXME
+The source code is distributed under the EPL license (http://www.eclipse.org/org/documents/epl-v10.html)
 
-Distributed under the Eclipse Public License either version 1.0 or (at
-your option) any later version.
+(c) 2012 Jens Bendisposto, all rights reserved
+

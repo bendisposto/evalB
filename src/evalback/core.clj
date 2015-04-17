@@ -1,4 +1,5 @@
 (ns evalback.core
+  (:gen-class :implements [org.apache.commons.daemon.Daemon])
   (:require [liberator.core :refer [resource defresource]]
             [ring.middleware.params :refer [wrap-params]]
             [compojure.core :refer [defroutes ANY GET POST]]
@@ -9,15 +10,14 @@
             [clojure.core.async :as a :refer [alts!! chan <!! >!! timeout]])
   (:use ring.server.standalone
         [ring.middleware file-info file])
-  (:import de.prob.animator.command.CbcSolveCommand
+  (:import [org.apache.commons.daemon Daemon DaemonContext]
+           de.prob.animator.command.CbcSolveCommand
            (de.prob.animator.domainobjects ClassicalB TLA EvalResult ComputationNotCompletedResult)
            de.prob.unicode.UnicodeTranslator
            de.tla2b.exceptions.TLA2BException
            de.prob.Main
            de.prob.scripting.Api
-           de.be4.classicalb.core.parser.node.AImplicationPredicate
-                                        ;de.tla2b.translation.ExpressionTranslator
-           ))
+           de.be4.classicalb.core.parser.node.AImplicationPredicate))
 
 (def instances 2)
 (def prob-timeout 3000)
@@ -36,7 +36,6 @@
                 :bindings bindings})))
 
 (defmethod process-result ComputationNotCompletedResult [res cbf _ resp]
-  (println :xxx res resp)
   (let [reason (.getReason res)]
     (condp = reason
       "contradiction found" (into resp {:status :ok :result false :input cbf})
@@ -54,7 +53,6 @@
 
 
 (defn top-level-implication? [cbf]
-  (println :cbf cbf)
   (let [ast (.getAst cbf)
         pu (.getPParseUnit ast)
         pred (.getPredicate pu)]
@@ -67,7 +65,6 @@
 (defn run-eval  [ss {:keys [input formalism] :as resp}]
   (try (let [[cbf introduced] (mk-formula formalism input)
              c (CbcSolveCommand. cbf)]
-         (println :solve formalism input cbf)
          (.execute ss c)
          (process-result (.getValue c) cbf introduced resp))
        (catch Exception e
@@ -112,7 +109,7 @@
 (defn valid-reply [result input introduced bindings]
   (if introduced
     (apply str (get bindings introduced "No solution computed.")
-           (if (seq bindings) "\n\nSolution: \n" "")
+           (if (< 1 (count bindings)) "\n\nSolution: \n" "")
            (for [[k v] bindings] (if-not (= k introduced) (str "  " k "=" v "\n") "")))
     (apply str "Predicate is " (if result "satisfiable" "not satisfiable") ".\n"
            (top-level-implication? input)
@@ -120,7 +117,6 @@
            (for [[k v] bindings] (str "  " k "=" v "\n")))))
 
 (defn old-json [{:keys [status result input introduced  bindings]}]
-  (println :s status :r result :b bindings)
   (json/write-str
    (if (= status :error)
      {:output (str "Error: " result)}
@@ -214,3 +210,14 @@
 (defn stop-server []
   (.stop @server)
   (reset! server nil))
+
+(defn -init [this ^DaemonContext context])
+
+(defn -start [this]
+  (future (start-server)))
+
+(defn -stop [this]
+  (stop-server))
+
+(defn -main [& args]
+  (start-server))

@@ -15,5 +15,7 @@
                  [de.prob2/de.prob2.kernel "2.0.0-milestone-25-SNAPSHOT"]
                  [hiccup "1.0.5"]
                  [ring/ring-core "1.2.1"]
-                 [ring-server "0.3.1"]]
-  :main evalback.core)
+                 [ring-server "0.3.1"]
+                 [org.apache.commons/commons-daemon "1.0.9"]]
+  :main evalback.core
+  :aot :all)

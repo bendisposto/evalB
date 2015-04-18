@@ -17,7 +17,9 @@
            de.tla2b.exceptions.TLA2BException
            de.prob.Main
            de.prob.scripting.Api
-           de.be4.classicalb.core.parser.node.AImplicationPredicate))
+           (de.be4.classicalb.core.parser.node TIdentifierLiteral AImplicationPredicate)))
+
+(def varname [(TIdentifierLiteral. "_lambda_result_")])
 
 (def instances 2)
 (def prob-timeout 3000)
@@ -49,7 +51,12 @@
 (defn mk-formula [formalism input]
   (let [cbf (instantiate formalism input)
         pred? (= "#PREDICATE" (.getKind cbf))]
-    (if pred? [cbf nil] (let [gs (str (gensym "ProB_Var_"))] [(instantiate formalism (str gs  " = " input)) gs]))))
+    (if pred?
+      [cbf nil]
+      (let [
+            cbf (instantiate formalism (str  "lambda_result_ = " input))
+            ast (.. cbf getAst getPParseUnit getPredicate getLeft (setIdentifier varname))]
+        [cbf "_lambda_result_"]))))
 
 
 (defn top-level-implication? [cbf]
@@ -202,10 +209,11 @@
             (serve (get-handler)
                    {:port port
                     :init init
-                    :auto-reload? true
+                    :open-browser? false
+                    :stacktraces? false
+                    :auto-reload? false
                     :destroy destroy
-                    :join? false}))
-    (println (str "You can view the site at http://localhost:" port))))
+                    :join? true}))))
 
 (defn stop-server []
   (.stop @server)

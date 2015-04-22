@@ -201,19 +201,21 @@
       (wrap-file-info)
       wrap-params))
 
+(def port (let [p (System/getProperty "port")]
+            (if p (Integer/parseInt p) 9000)))
+
 (defn start-server
   "used for starting the server in development mode from REPL"
-  [& [port]]
-  (let [port (if port (Integer/parseInt port) 3000)]
-    (reset! server
-            (serve (get-handler)
-                   {:port port
-                    :init init
-                    :open-browser? false
-                    :stacktraces? false
-                    :auto-reload? false
-                    :destroy destroy
-                    :join? true}))))
+  []
+  (reset! server
+          (serve (get-handler)
+                 {:port port
+                  :init init
+                  :open-browser? false
+                  :stacktraces? false
+                  :auto-reload? false
+                  :destroy destroy
+                  :join? true})))
 
 (defn stop-server []
   (.stop @server)

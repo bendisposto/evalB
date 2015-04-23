@@ -139,7 +139,7 @@
 
 
 (defroutes app 
-  (ANY "/" [] (resp/file-response "index.html"))
+  (GET "/" [] (resp/redirect "index.html"))
   (ANY "/version" [] (str (.getVersion (get-api))))
   (POST "/xxx" [formalism input] old-json-answer)
   (resources "/")

@@ -36,7 +36,7 @@ function sendRequest(target) {
 }
 
 function version() {
-  $("#versionnumber").load("/version", function() {});
+  $("#versionnumber").load("version", function() {});
   //req.open('GET', 'version', true);
   //$("versionnumber").text();
 }

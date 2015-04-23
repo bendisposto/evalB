@@ -1,8 +1,9 @@
 (ns evalback.core
-  (:gen-class :implements [org.apache.commons.daemon.Daemon])
-  (:require [liberator.core :refer [resource defresource]]
-            [ring.middleware.params :refer [wrap-params]]
+  (:gen-class)
+  (:require [ring.middleware.params :refer [wrap-params]]
+            [ring.util.response :as resp]
             [compojure.core :refer [defroutes ANY GET POST]]
+            [compojure.route :refer [not-found resources]]
             [hiccup.core :as h]
             [hiccup.page :as hp]
             [hiccup.element :as he]
@@ -10,8 +11,7 @@
             [clojure.core.async :as a :refer [alts!! chan <!! >!! timeout]])
   (:use ring.server.standalone
         [ring.middleware file-info file])
-  (:import [org.apache.commons.daemon Daemon DaemonContext]
-           de.prob.animator.command.CbcSolveCommand
+  (:import de.prob.animator.command.CbcSolveCommand
            (de.prob.animator.domainobjects ClassicalB TLA EvalResult ComputationNotCompletedResult)
            de.prob.unicode.UnicodeTranslator
            de.tla2b.exceptions.TLA2BException
@@ -24,7 +24,6 @@
 (def instances 2)
 (def prob-timeout 3000)
 (def request-timeout 6500)
-(defonce server (atom nil))
 (defonce worker (atom nil))
 
 (defmulti process-result (fn [r _ _ _] (class r)))
@@ -131,25 +130,21 @@
 
 (defn get-api [] (.getInstance (Main/getInjector) Api))
 
-(defroutes app
-  (ANY "/version" [] (str (.getVersion (get-api))))
-
-
-  (POST "/xxx" [formalism input]
-        (let [r (solve {:formalism  (keyword formalism)
-                        :input input })]
+(defn old-json-answer [req]
+  (let [formalism (get-in req [:params "formalism"])
+        input     (get-in req [:params "input"])
+        r         (solve {:formalism  (keyword formalism)
+                          :input input })]
           (old-json r)))
 
-  (ANY "/eval/:formalism/:formula" [formalism formula]
-       (resource :available-media-types ["text/html" "application/clojure" "application/json"]
-                 :handle-ok
-                 (fn [context]
-                   (let [r (solve {:formalism  (keyword formalism) :input formula})]
-                     (condp =
-                         (get-in context [:representation :media-type])
-                       "text/html" (html-result formula r)
-                       "application/clojure" (edn-result formula r)
-                       "application/json" (json-result formula r)))))))
+
+(defroutes app 
+  (ANY "/" [] (resp/file-response "index.html"))
+  (ANY "/version" [] (str (.getVersion (get-api))))
+  (POST "/xxx" [formalism input] old-json-answer)
+  (resources "/")
+  (not-found "Not Found"))
+
 
 (def handler
   (-> app
@@ -189,45 +184,4 @@
   (reset! worker nil)
   (println :destroy))
 
-(defn get-handler []
-  ;; #'app expands to (var app) so that when we reload our code,
-  ;; the server is forced to re-resolve the symbol in the var
-  ;; rather than having its own copy. When the root binding
-  ;; changes, the server picks it up without having to restart.
-  (-> #'app
-                                        ; Makes static assets in $PROJECT_DIR/resources/public/ available.
-      (wrap-file "resources")
-                                        ; Content-Type, Content-Length, and Last Modified headers for files in body
-      (wrap-file-info)
-      wrap-params))
 
-(def port (let [p (System/getProperty "port")]
-            (if p (Integer/parseInt p) 9000)))
-
-(defn start-server
-  "used for starting the server in development mode from REPL"
-  []
-  (reset! server
-          (serve (get-handler)
-                 {:port port
-                  :init init
-                  :open-browser? false
-                  :stacktraces? false
-                  :auto-reload? false
-                  :destroy destroy
-                  :join? true})))
-
-(defn stop-server []
-  (.stop @server)
-  (reset! server nil))
-
-(defn -init [this ^DaemonContext context])
-
-(defn -start [this]
-  (future (start-server)))
-
-(defn -stop [this]
-  (stop-server))
-
-(defn -main [& args]
-  (start-server))

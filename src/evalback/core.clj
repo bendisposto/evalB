@@ -145,8 +145,9 @@
 
 (defn debug-path []
   (let [b (io/file ".")
-        files (file-seq b)]
-        (apply str files)))
+        files (file-seq b)
+        files (map (fn [f] (.getAbsolutePath f)))]
+        (clojure.string/join "\n" files)))
 
 (defn provide-examples []
   (str "/*\n" (debug-path) "*/\n" "\nexample_list = " 

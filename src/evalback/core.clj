@@ -168,14 +168,18 @@
 (defn mk-worker [tn]
   (let [animator (.. (.b_load (get-api) tn) getStateSpace)]
     (fn [request]
-      (assoc (let [result-future (future (run-eval animator request))
+      (assoc (if request 
+               (let [result-future (future (run-eval animator request))
                    result (deref
                            result-future
                            prob-timeout
                            (into request {:status :error :result "Timeout"}))]
-               (future-cancel result-future)
-               result)
-             :animator-id (.getId animator)))))
+                (future-cancel result-future)
+                result)
+               {}
+              )
+             :animator-id (.getId animator)
+             :kill-fn (fn [] (.kill animator))))))
 
 (defn create-empty-machine []
   (let [tf (java.io.File/createTempFile "evalb" ".mch" nil)
@@ -194,7 +198,7 @@
   (println :init))
 
 (defn destroy []
-  (doseq [_ (range instances)] (<!! @worker))
+  (doseq [_ (range instances)] ((:kill-fn ((<!! @worker) nil))))
   (reset! worker nil)
   (println :destroy))
 

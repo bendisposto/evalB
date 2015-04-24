@@ -143,8 +143,13 @@
         files (file-seq b)]
     (into {} (for [f files :when (.isFile f)] [(.getName f) (slurp f)]))))
 
+(defn debug-path []
+  (let [b (io/file ".")
+        files (file-seq b)]
+        (apply str files)))
+
 (defn provide-examples []
-  (str "example_list = " 
+  (str "/*\n" (debug-path) "*/\n" "\nexample_list = " 
     (json/write-str {"b" (mk-example-map "public/examples/b") 
                      "tla" (mk-example-map "public/examples/tla") })))
 

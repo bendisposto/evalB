@@ -145,8 +145,8 @@
 
 (defn provide-examples []
   (str "example_list = " 
-    (json/write-str {"b" (mk-example-map "examples/b") 
-                     "tla" (mk-example-map "examples/tla") })))
+    (json/write-str {"b" (mk-example-map "public/examples/b") 
+                     "tla" (mk-example-map "public/examples/tla") })))
 
 (defroutes app 
   (GET "/" [] (resp/redirect "index.html"))

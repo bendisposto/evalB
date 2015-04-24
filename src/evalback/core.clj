@@ -9,7 +9,7 @@
             [hiccup.page :as hp]
             [hiccup.element :as he]
             [clojure.data.json :as json]
-            [clojure.core.async :as a :refer [alts!! chan <!! >!! timeout]])
+            [clojure.core.async :as a :refer [alts!! close! chan <!! >!! timeout]])
   (:use ring.server.standalone
         [ring.middleware file-info file])
   (:import de.prob.animator.command.CbcSolveCommand
@@ -81,8 +81,10 @@
 
 
 (defn solve [request]
-  (let [[solver _] (alts!! [@worker (timeout request-timeout)])]
-    (if solver
+  (let [ toc (timeout request-timeout)
+        [solver c] (alts!! [@worker toc])]
+    (if-not (= c toc)
+      (close! toc)
       (let [result (solver request)]
         (>!! @worker solver)
         result)
@@ -194,7 +196,6 @@
 (defn destroy []
   (doseq [_ (range instances)] (<!! @worker))
   (reset! worker nil)
-  (println :destroy)
-  (System/exit 0))
+  (println :destroy))
 
 

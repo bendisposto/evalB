@@ -194,6 +194,7 @@
 (defn destroy []
   (doseq [_ (range instances)] (<!! @worker))
   (reset! worker nil)
-  (println :destroy))
+  (println :destroy)
+  (System/exit 0))
 
 

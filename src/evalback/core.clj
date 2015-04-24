@@ -143,14 +143,9 @@
         files (file-seq b)]
     (into {} (for [f files :when (.isFile f)] [(.getName f) (slurp f)]))))
 
-(defn debug-path []
-  (let [b (io/file "./webapps/evalB/WEB-INF/classes/")
-        files (file-seq b)
-        files (map (fn [f] (.getAbsolutePath f)) files)]
-        (clojure.string/join "\n" files)))
 
 (defn provide-examples []
-  (str "/*\n" (debug-path) "*/\n" "\nexample_list = " 
+  (str "\nexample_list = " 
     (json/write-str {"b" (mk-example-map "./webapps/evalB/WEB-INF/classes/public/examples/b") 
                      "tla" (mk-example-map "./webapps/evalB/WEB-INF/classes/public/examples/tla") })))
 

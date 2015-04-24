@@ -198,8 +198,10 @@
   (println :init))
 
 (defn destroy []
-  (doseq [_ (range instances)] ((:kill-fn ((<!! @worker) nil))))
+  (doseq [_ (range instances)] 
+    ((:kill-fn ((<!! @worker) nil))))
   (reset! worker nil)
+  (Thread/sleep (* 3300 instances))
   (println :destroy))
 
 

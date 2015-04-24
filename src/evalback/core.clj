@@ -84,10 +84,10 @@
   (let [ toc (timeout request-timeout)
         [solver c] (alts!! [@worker toc])]
     (if-not (= c toc)
-      (close! toc)
+      (do (close! toc)
       (let [result (solver request)]
         (>!! @worker solver)
-        result)
+        result))
       (into request {:status :error :result "The system is under heavy load. Please try again later."}))))
 
 

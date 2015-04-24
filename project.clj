@@ -17,6 +17,7 @@
   :main evalback.core
   :ring {:handler evalback.core/handler
          :init evalback.core/init
+         ;; :nrepl {:start? true :port 6000}
          :destroy evalback.core/destroy
          :uberwar-name "evalB.war"}
   :aot :all)

@@ -22,7 +22,7 @@
 
 (def varname [(TIdentifierLiteral. "_lambda_result_")])
 
-(def instances 2)
+(def instances 4)
 (def prob-timeout 3000)
 (def request-timeout 6500)
 (defonce worker (atom nil))

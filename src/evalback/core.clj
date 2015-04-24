@@ -5,6 +5,7 @@
             [compojure.core :refer [defroutes ANY GET POST]]
             [compojure.route :refer [not-found resources]]
             [hiccup.core :as h]
+            [clojure.java.io :as io]
             [hiccup.page :as hp]
             [hiccup.element :as he]
             [clojure.data.json :as json]
@@ -137,9 +138,19 @@
                           :input input })]
           (old-json r)))
 
+(defn mk-example-map [dir]
+  (let [b (io/file dir)
+        files (file-seq b)]
+    (into {} (for [f files :when (.isFile f)] [(.getName f) (slurp f)]))))
+
+(defn provide-examples []
+  (str "example_list = " 
+    (json/write-str {"b" (mk-example-map "examples/b") 
+                     "tla" (mk-example-map "examples/tla") })))
 
 (defroutes app 
   (GET "/" [] (resp/redirect "index.html"))
+  (GET "/js/examples.js" [] (provide-examples))
   (ANY "/version" [] (str (.getVersion (get-api))))
   (POST "/xxx" [formalism input] old-json-answer)
   (resources "/")

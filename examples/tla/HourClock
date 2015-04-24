@@ -1,0 +1,9 @@
+\* Calculating the next state of the hour clock *\
+LET
+	Current == hr = 12
+	
+	Inv == hr \in 1..12
+	
+	Next == hr' = IF hr # 12 THEN hr + 1 ELSE 1
+IN 
+	Current /\ Inv  /\ Next

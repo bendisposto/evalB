@@ -63,3 +63,8 @@ sup, sub {
   margin-left: 20px;
 }
 
+h3 {
+  font-family: Montserrat,"Helvetica Neue",Helvetica,Arial,sans-serif;
+  font-size: 18px;
+  font-weight: bold;
+}

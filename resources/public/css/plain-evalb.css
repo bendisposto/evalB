@@ -57,3 +57,9 @@ sup, sub {
   width="350px"
 }
 
+.version {
+  font-size: 10px;
+  line-height: 11px;
+  margin-left: 20px;
+}
+

@@ -1,3 +1,3 @@
 \* Knights-Knaves Puzzle *\
- (A <=> (B \/ C)) /\
+ (A <=> (~B \/ ~C)) /\
  (B <=> A)

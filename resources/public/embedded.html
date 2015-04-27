@@ -62,28 +62,35 @@
 	<!-- Delete everything in this .container and get started on your own site! -->
 
 	<div class="container">
-		<div class="two-thirds column">
-			<textarea name="input" id="input" rows="15"
-			          onkeyup="probeval()"></textarea>
-      	<div class="version">probcli version <span id="versionnumber"></span></div>
-		</div>
-		<div class="one-third column omega" style="vertical-align: text-top;">
+		<div class="sixteen columns">
+		 <span class="four columns" style="vertical-align: text-top;">
 			<h3>Formalism</h3>
 			<select size="1" id="formalism" name="formalism"
 				class="styled-select" onchange="switch_formalism()">
 				<option value="b" selected="selected">B Method</option>
 				<option value="tla">TLA+</option>
 			</select>
+		</span>
+		 <span class="four columns" style="vertical-align: text-top;">	
 			<h3>Examples</h3>
 			<select size="1" id="examples" name="examples" class="styled-select"
 				onchange="load_example()">
 				<option value="" selected="selected" ></option>
 			</select>
+		</span>
+	</div>
+
+		<div class="sixteen columns">
+			<textarea name="input" id="input" rows="15"
+			          onkeyup="probeval()"></textarea>
+      	
+		</div>
+<div class="sixteen columns version">probcli version <span id="versionnumber"></span></div>		
+
+		<div class="sixteen columns">
+			<textarea name="output" id="output" rows="5"></textarea>
 		</div>
 
-		<div class="two-thirds column">
-			<textarea name="output" id="output" cols="80" rows="5"></textarea>
-		</div>
 
 
 	</div>

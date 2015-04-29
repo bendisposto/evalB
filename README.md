@@ -2,6 +2,7 @@
 
 This is the re-development of the ProB Logic Calculator. The old version is tagged as 0.1. 
 
+[![Build Status](https://travis-ci.org/bendisposto/evalB.svg?branch=master)](https://travis-ci.org/bendisposto/evalB)
 
 ## Acknowledgements
 We use some great libaries: 

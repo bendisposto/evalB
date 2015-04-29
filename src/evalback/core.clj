@@ -115,15 +115,32 @@
 (defn json-result [formula res]
   (json/write-str (assoc res :input formula)))
 
+
+(defn expression-reply [bindings introduced]
+  (apply str (get bindings introduced "No solution computed.")
+         (if (< 1 (count bindings)) "\n\nSolution: \n" "")
+         (for [[k v] bindings] (if-not (= k introduced) (str "  " k "=" v "\n") ""))))
+
+(defn pp-result [has-free-vars? result]
+  (cond
+    (and has-free-vars? result) "satisfiable"
+    (and has-free-vars? (not result)) "not satisfiable"
+    (and (not has-free-vars?) result) "true"
+    :else "false"
+    ))
+
+(defn predicate-reply [result input bindings]
+  (let [has-free-vars? (seq bindings)]
+    (apply str "Predicate is " (pp-result has-free-vars? result) ".\n"
+           (top-level-implication? input)
+           (if has-free-vars? "\nSolution: \n" "")
+           (for [[k v] bindings] (str "  " k "=" v "\n")))))
+
+
 (defn valid-reply [result input introduced bindings]
   (if introduced
-    (apply str (get bindings introduced "No solution computed.")
-           (if (< 1 (count bindings)) "\n\nSolution: \n" "")
-           (for [[k v] bindings] (if-not (= k introduced) (str "  " k "=" v "\n") "")))
-    (apply str "Predicate is " (if result "satisfiable" "not satisfiable") ".\n"
-           (top-level-implication? input)
-           (if (seq bindings) "\nSolution: \n" "")
-           (for [[k v] bindings] (str "  " k "=" v "\n")))))
+    (expression-reply bindings introduced)
+    (predicate-reply result input bindings)))
 
 (defn old-json [{:keys [status result input introduced  bindings]}]
   (json/write-str

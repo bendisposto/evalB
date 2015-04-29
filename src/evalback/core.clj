@@ -172,7 +172,7 @@
   (GET "/" [] (resp/redirect "index.html"))
   (GET "/js/examples.js" [] (provide-examples))
   (ANY "/version" [] (str (.getVersion (get-api))))
-  (POST "/xxx" [formalism input] old-json-answer)
+  (POST "/xxx" [formalism input] (if (empty? (.trim  input)) (json/write-str {:output  ""}) old-json-answer))
   (resources "/")
   (not-found "Not Found"))
 

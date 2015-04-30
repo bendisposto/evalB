@@ -30,11 +30,13 @@
 (defmulti process-result (fn [r _ _ _] (class r)))
 (defmethod process-result EvalResult [res cbf introduced resp]
   (let [result (.getValue res)
-        bindings (into {} (.getSolutions res))]
+        bindings (into {} (.getSolutions res))
+        has-free-vars? (seq (.getFreeVariables res))]
     (into resp {:status :ok
                 :input cbf
                 :introduced introduced
                 :result result
+                :has-free-vars? has-free-vars?
                 :bindings bindings})))
 
 (defmethod process-result ComputationNotCompletedResult [res cbf _ resp]
@@ -129,24 +131,22 @@
     :else "false"
     ))
 
-(defn predicate-reply [result input bindings]
-  (let [has-free-vars? (seq bindings)]
-    (apply str "Predicate is " (pp-result has-free-vars? result) ".\n"
+(defn predicate-reply [result input has-free-vars? bindings]
+  (apply str "Predicate is " (pp-result has-free-vars? result) ".\n"
            (top-level-implication? input)
            (if has-free-vars? "\nSolution: \n" "")
-           (for [[k v] bindings] (str "  " k "=" v "\n")))))
+           (for [[k v] bindings] (str "  " k "=" v "\n"))))
 
-
-(defn valid-reply [result input introduced bindings]
+(defn valid-reply [result input introduced has-free-vars? bindings]
   (if introduced
     (expression-reply bindings introduced)
-    (predicate-reply result input bindings)))
+    (predicate-reply result input has-free-vars? bindings)))
 
-(defn old-json [{:keys [status result input introduced  bindings]}]
+(defn old-json [{:keys [status result input introduced has-free-vars? bindings]}]
   (json/write-str
    (if (= status :error)
      {:output (str "Error: " result)}
-     {:output (valid-reply result input introduced bindings)})))
+     {:output (valid-reply result input introduced has-free-vars? bindings)})))
 
 (defn get-api [] (.getInstance (Main/getInjector) Api))
 

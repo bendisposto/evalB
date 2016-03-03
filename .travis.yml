@@ -3,6 +3,11 @@ lein: lein2
 script: lein2 ring uberwar
 branches:
   only:
-    - master
+  - master
 jdk:
-  - oraclejdk7
+- oraclejdk7
+env:
+  global:
+  - secure: Sqcil5/1XyRzILZ9nVyaOT5KfZ5n+LTHFwVsB4yMHVhlshpfggbZAB53ivoMWvUS0M6V1UbTQ9RaW0WBxyDSUITCG8CK41yYBUX+zBEEH/OG9prUYHPgA6mwrcUt+MSOZQDuEY4ajR2heipLsr0IgW6hafuIUTcp6E8kYvRzCxk=
+  - secure: NoBrmfxiWLPRF6ihZ+KfXJqVV7ma3IsA/3kmxRhzinKszk/pxXH6miDCSTqLej4P1yRWqEh3+Fik/2pGaPYjjkf4+SMoiP0kAZrzxyVHKDHdbY5YAzlUZN+OeOzPIIN7SnYXqLRtZKWY41/D+R8xTOA1rE1d28VfrnOD48GR4+k=
+  - secure: qISib/9fezqW12ujf0IimhmFxdE2D9W4sXjp+33/nj9uGIkl1SnQHebPbZM/ggXsAxH3U/WwfpMrvzdaz/AgAVWRp6fBq4ezyY2hlnfPo7kAWlA5PcsgiSwM+wsT9YaUsItCyOe/nRvNNUzVFG2FYaGXH8NRywaAYD47jH+mvbU=

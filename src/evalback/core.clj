@@ -31,7 +31,7 @@
 (defmethod process-result EvalResult [res cbf introduced resp]
   (let [result (.getValue res)
         bindings (into {} (.getSolutions res))
-        has-free-vars? (seq (.getFreeVariables res))]
+        has-free-vars? (seq (.. res translate getKeys))]
     (into resp {:status :ok
                 :input cbf
                 :introduced introduced
@@ -183,7 +183,7 @@
 
 
 (defn mk-worker [tn]
-  (let [animator (.. (.b_load (get-api) tn) getStateSpace)]
+  (let [animator (.b_load (get-api) tn)]
     (fn [request]
       (assoc (if request 
                (let [result-future (future (run-eval animator request))

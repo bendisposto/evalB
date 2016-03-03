@@ -18,11 +18,17 @@ cargo {
         username = 'manager'
         password = 'manager'
     }
-}
-
- deployable {
+    
+     deployable {
         file = file('/home/travis/build/bendisposto/evalB/target/evalB.war')
         context = 'web-app'
+    }
+    
 }
+
+
+
+
+
 
 

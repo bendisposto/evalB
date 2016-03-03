@@ -10,6 +10,10 @@ buildscript {
 
 apply plugin: 'com.bmuschko.cargo'
 
+repositories {
+    mavenCentral()
+}
+
 cargo {
     containerId = 'tomcat7x'
 

@@ -1,0 +1,31 @@
+buildscript {
+    repositories {
+        jcenter()
+    }
+
+    dependencies {
+        classpath 'com.bmuschko:gradle-cargo-plugin:2.2.2'
+    }
+}
+
+apply plugin: 'com.bmuschko.cargo'
+
+repositories {
+    mavenCentral()
+}
+
+cargo {
+    containerId = 'tomcat7x'
+
+    remote {
+        hostname = System.getenv('DEPLOY_HOST')
+        username = System.getenv('DEPLOY_USER')
+        password = System.getenv('DEPLOY_PASSWORD')
+    }
+
+     deployable {
+        file = file('/home/travis/build/bendisposto/evalB/target/evalB.war')
+        context = 'web-app'
+    }
+
+}

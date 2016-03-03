@@ -1,0 +1,22 @@
+buildscript {
+    repositories {
+        jcenter()
+    }
+
+    dependencies {
+        classpath 'com.bmuschko:gradle-cargo-plugin:2.2.2'
+    }
+}
+
+apply plugin: 'com.bmuschko.cargo'
+
+cargo {
+    containerId = 'tomcat7x'
+
+    remote {
+        hostname = 'localhost'
+        username = 'manager'
+        password = 'manager'
+    }
+}
+

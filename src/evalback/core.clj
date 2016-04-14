@@ -31,7 +31,7 @@
 (defmethod process-result EvalResult [res cbf introduced resp]
   (let [result (.getValue res)
         bindings (into {} (.getSolutions res))
-        has-free-vars? (seq (.. res translate getKeys))]
+        has-free-vars? (keys bindings)]
     (into resp {:status :ok
                 :input cbf
                 :introduced introduced

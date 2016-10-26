@@ -66,7 +66,7 @@
         pu (.getPParseUnit ast)
         pred (.getPredicate pu)]
     (if (instance? AImplicationPredicate pred)
-      "\nYou use an implication at the top level. This is most likely not what you meant. Remember that free variables are existentially quantified.\n\n"
+      "\nYou use an implication at the top level. This may not be what you meant. Remember that free variables are existentially quantified.\n\n"
       "")))
 
 

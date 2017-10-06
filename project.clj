@@ -9,7 +9,7 @@
                  [compojure "1.1.3"]
                  [org.clojure/data.json "0.2.5"]
                  [org.clojure/core.async "0.1.346.0-17112a-alpha"]
-                 [de.hhu.stups/de.prob2.kernel "3.2.3"]
+                 [de.hhu.stups/de.prob2.kernel "2.0.0"]
                  [hiccup "1.0.5"]
                  [ring/ring-core "1.2.1"]
                  [ring-server "0.3.1"]]

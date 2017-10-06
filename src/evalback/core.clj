@@ -29,7 +29,7 @@
 
 (defmulti process-result (fn [r _ _ _] (class r)))
 (defmethod process-result EvalResult [res cbf introduced resp]
-  (let [result (.getValue res)
+  (let [result (= "TRUE"(.getValue res))
         bindings (into {} (.getSolutions res))
         has-free-vars? (keys bindings)]
     (into resp {:status :ok
@@ -52,7 +52,7 @@
 
 (defn mk-formula [formalism input]
   (let [cbf (instantiate formalism input)
-        pred? (= "#PREDICATE" (.getKind cbf))]
+        pred? (= "PREDICATE" (str (.getKind cbf)))]
     (if pred?
       [cbf nil]
       (let [

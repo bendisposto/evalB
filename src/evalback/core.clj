@@ -52,7 +52,7 @@
 
 (defn mk-formula [formalism input]
   (let [cbf (instantiate formalism input)
-        pred? (= "#PREDICATE" (.getKind cbf))]
+        pred? (= "PREDICATE" (str (.getKind cbf)))]
     (if pred?
       [cbf nil]
       (let [

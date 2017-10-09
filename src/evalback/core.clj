@@ -203,7 +203,7 @@
         tn (.getAbsolutePath tf)
         ]
     (.deleteOnExit tf)
-    (spit tf "MACHINE empty \n END")
+    (spit tf "MACHINE empty \n DEFINITIONS \n SET_PREF_MAXINT == 127;\b SET_PREF_MININT == -128;\n END")
     tn))
 
 (defn init []
